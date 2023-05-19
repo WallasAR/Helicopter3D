@@ -36,20 +36,19 @@ void desenhaCabine() {
     glScalef(1.2, 1.2, 1.5);
     GLUquadricObj *quadric = gluNewQuadric();
     glColor4f(0.3, 0.8, 1, 0.5); 
-    glDisable(GL_TEXTURE_2D);
     gluSphere(quadric, 0.5, 100, 150);
     
     glPopMatrix(); // Restores the previous model-view matrix so that, in case of modifications, there is no change of positions in any other function
 }
 
 // Draw propellers
-void propellers(){
+void propellers1(){
 	
 	// Propellers 1
     glPushMatrix();
     
-    glTranslatef(0.0, 0.0, -4.0);
-    glRotatef(rotationAngle, 0.0, 1.0, 0.0);  // Rotação da hélice 1 (use uma variável para alterar o ângulo)
+    glTranslatef(0.0, -0.2, -4.0);
+    glRotatef(rotationAngle, 0.0, 1.0, 0.0);  // Rota??o da h?lice 1 (use uma vari?vel para alterar o ?ngulo)
     glScalef(0.5, 0.5, 0.5);
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glColor3f(0.8, 0.8, 0.8);
@@ -95,6 +94,180 @@ void propellers(){
   	  glVertex3fv(helice1[0]);
   	  glVertex3fv(helice1[4]);
   	  glVertex3fv(helice1[7]);
+  	  
+  glEnd();
+
+  glPopMatrix();
+}
+
+void propellers2(){
+	
+	// Propellers 2
+    glPushMatrix();
+    
+    glTranslatef(0.0, -2.35, -4.0);
+    glRotatef(rotationAngle, 0.0, 1.0, 0.0);  // Rota??o da h?lice 2 (use uma vari?vel para alterar o ?ngulo)
+    glScalef(0.5, 0.5, 0.5);
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.8, 0.8, 0.8);
+	
+	GLfloat helice2[][3] = {
+        {-0.1, 0.0, 0.1},
+        {0.5, 0.0, 0.1},
+        {0.5, 0.0, -0.1},
+        {-0.1, 0.0, -0.1},
+        	
+        {-0.1, 4.0, 0.1},
+        {0.5, 4.0, 0.1},
+        {0.5, 4.0, -0.1},
+        {-0.1, 4.0, -0.1}
+  }; 
+  	  glBegin(GL_QUADS);
+  	  glVertex3fv(helice2[0]);
+  	  glVertex3fv(helice2[1]);
+  	  glVertex3fv(helice2[2]);
+  	  glVertex3fv(helice2[3]);
+  	  
+  	  glVertex3fv(helice2[4]);
+  	  glVertex3fv(helice2[5]);
+  	  glVertex3fv(helice2[6]);
+  	  glVertex3fv(helice2[7]);
+  	  
+  	  glVertex3fv(helice2[0]);
+  	  glVertex3fv(helice2[1]);
+  	  glVertex3fv(helice2[5]);
+  	  glVertex3fv(helice2[4]);
+  	  
+  	  glVertex3fv(helice2[1]);
+  	  glVertex3fv(helice2[2]);
+  	  glVertex3fv(helice2[6]);
+  	  glVertex3fv(helice2[5]);
+  	  
+  	  glVertex3fv(helice2[2]);
+  	  glVertex3fv(helice2[3]);
+  	  glVertex3fv(helice2[7]);
+  	  glVertex3fv(helice2[6]);
+  	  
+  	  glVertex3fv(helice2[3]);
+  	  glVertex3fv(helice2[0]);
+  	  glVertex3fv(helice2[4]);
+  	  glVertex3fv(helice2[7]);
+  	  
+  glEnd();
+
+  glPopMatrix();
+}
+
+void propellers3(){
+	
+	// Propellers 3
+    glPushMatrix();
+    
+    glTranslatef(0.0, -0.35, -4.0);
+    glRotatef(rotationAngle, 1.0, 1.0, 0.0);  // Rota??o da h?lice 3 (use uma vari?vel para alterar o ?ngulo)
+    glScalef(0.5, 0.5, 0.5);
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.8, 0.8, 0.8);
+	
+	GLfloat helice3[][3] = {
+        {-0.1, 0.0, 0.1},
+        {0.5, 0.0, 0.1},
+        {0.5, 0.0, -0.1},
+        {-0.1, 0.0, -0.1},
+        	
+        {-0.1, 4.0, 0.1},
+        {0.5, 4.0, 0.1},
+        {0.5, 4.0, -0.1},
+        {-0.1, 4.0, -0.1}
+  }; 
+  	  glBegin(GL_QUADS);
+  	  glVertex3fv(helice3[0]);
+  	  glVertex3fv(helice3[1]);
+  	  glVertex3fv(helice3[2]);
+  	  glVertex3fv(helice3[3]);
+  	  
+  	  glVertex3fv(helice3[4]);
+  	  glVertex3fv(helice3[5]);
+  	  glVertex3fv(helice3[6]);
+  	  glVertex3fv(helice3[7]);
+  	  
+  	  glVertex3fv(helice3[0]);
+  	  glVertex3fv(helice3[1]);
+  	  glVertex3fv(helice3[5]);
+  	  glVertex3fv(helice3[4]);
+  	  
+  	  glVertex3fv(helice3[1]);
+  	  glVertex3fv(helice3[2]);
+  	  glVertex3fv(helice3[6]);
+  	  glVertex3fv(helice3[5]);
+  	  
+  	  glVertex3fv(helice3[2]);
+  	  glVertex3fv(helice3[3]);
+  	  glVertex3fv(helice3[7]);
+  	  glVertex3fv(helice3[6]);
+  	  
+  	  glVertex3fv(helice3[3]);
+  	  glVertex3fv(helice3[0]);
+  	  glVertex3fv(helice3[4]);
+  	  glVertex3fv(helice3[7]);
+  	  
+  glEnd();
+
+  glPopMatrix();
+}
+
+void propellers4(){
+	
+	// Propellers 4
+    glPushMatrix();
+    
+    glTranslatef(-2.2, -0.35, -4.0);
+    glRotatef(rotationAngle, 1.0, 1.0, 0.0);  // Rota??o da h?lice 4 (use uma vari?vel para alterar o ?ngulo)
+    glScalef(0.5, 0.5, 0.5);
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.8, 0.8, 0.8);
+	
+	GLfloat helice4[][3] = {
+        {-0.1, 0.0, 0.1},
+        {0.5, 0.0, 0.1},
+        {0.5, 0.0, -0.1},
+        {-0.1, 0.0, -0.1},
+        	
+        {-0.1, 4.0, 0.1},
+        {0.5, 4.0, 0.1},
+        {0.5, 4.0, -0.1},
+        {-0.1, 4.0, -0.1}
+  }; 
+  	  glBegin(GL_QUADS);
+  	  glVertex3fv(helice4[0]);
+  	  glVertex3fv(helice4[1]);
+  	  glVertex3fv(helice4[2]);
+  	  glVertex3fv(helice4[3]);
+  	  
+  	  glVertex3fv(helice4[4]);
+  	  glVertex3fv(helice4[5]);
+  	  glVertex3fv(helice4[6]);
+  	  glVertex3fv(helice4[7]);
+  	  
+  	  glVertex3fv(helice4[0]);
+  	  glVertex3fv(helice4[1]);
+  	  glVertex3fv(helice4[5]);
+  	  glVertex3fv(helice4[4]);
+  	  
+  	  glVertex3fv(helice4[1]);
+  	  glVertex3fv(helice4[2]);
+  	  glVertex3fv(helice4[6]);
+  	  glVertex3fv(helice4[5]);
+  	  
+  	  glVertex3fv(helice4[2]);
+  	  glVertex3fv(helice4[3]);
+  	  glVertex3fv(helice4[7]);
+  	  glVertex3fv(helice4[6]);
+  	  
+  	  glVertex3fv(helice4[3]);
+  	  glVertex3fv(helice4[0]);
+  	  glVertex3fv(helice4[4]);
+  	  glVertex3fv(helice4[7]);
   	  
   glEnd();
 
@@ -242,7 +415,15 @@ void draw() {
     desenhaCauda();
 	
 	// Draw propellers
-	propellers();
+	glPushMatrix();
+	
+	glTranslatef(0, 1.0, 2.5);
+	propellers1();
+	propellers2();
+	propellers3();
+	propellers4();
+	
+	glPopMatrix();
 	
     glEndList();
 }
@@ -273,7 +454,7 @@ void display(void) {
 
     glColor4f(0.3, 0.52, 0.18, 1.0);
     glCallList(helicopter);
-
+    
     glPopMatrix();
     glutSwapBuffers();
 }
