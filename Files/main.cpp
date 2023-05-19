@@ -28,19 +28,58 @@ void reshape(int width, int height) {
 
 // Draw Cabine
 void desenhaCabine() {
-    glTranslatef(-0.1, 3.7, -0.4);//Y = 3; Z = 0 default value
+	glPushMatrix();  // Saves the current model-view matrix
+	
+    glTranslatef(0.0, 2.3, -0.2);
     glRotatef(180, 0, 5, 5);
-    glPushMatrix();
-    glScalef(1.5, 1.5, 2.0); //X = 0.8; Y = 0.8 default value
+    glScalef(1.2, 1.2, 1.5);
     GLUquadricObj *quadric = gluNewQuadric();
-    glColor3f(0.3, 0.7, 1); 
+    glColor4f(0.3, 0.8, 1, 0.5); 
     glDisable(GL_TEXTURE_2D);
-    gluSphere(quadric, 0.5, 12, 12);
+    gluSphere(quadric, 0.5, 100, 150);
+    
+    glPopMatrix(); // Restores the previous model-view matrix so that, in case of modifications, there is no change of positions in any other function
+}
+
+
+
+// Draw Gun
+/*void desenhaNariz() {
+    GLUquadricObj *quadric = gluNewQuadric();
+    gluQuadricTexture(quadric, GL_TRUE);
+    glPushMatrix();
+    glTranslatef(0.3, 10.0, -1.5);
+    glRotatef(270, 1, 0, 0);
+    gluCylinder(quadric, 0.5, 0.3, 1.5, 12, 3);
+    glPopMatrix();
+}*/
+	
+// Draw Cone
+void desenhaCone() {
+	glPushMatrix();
+	
+	glClearColor(0, 0, 0, 0);
+	glColor3f(0, 1, 0);
+    GLUquadricObj *quadric = gluNewQuadric();
+    gluQuadricTexture(quadric, GL_TRUE);
+    glTranslatef(0, 0.1, -0.4);
+    glRotatef(90, 1, 0, 0);
+    gluCylinder(quadric, 0.6, 0.0, 1.5, 100, 150);
+    
+    gluQuadricTexture(quadric, GL_TRUE);
+    glTranslatef(0, -0.1, 0.1);
+    glRotatef(180, 1, 0, 0);
+    gluCylinder(quadric, 0.5, 0.7, 1.5, 100, 150);
+    glScalef(1.5, 1.5, 1.5);
+    
     glPopMatrix();
 }
 
 // Draw Cauda
 void desenhaCauda() {
+	
+	glPushMatrix();
+	
     GLfloat cauda[][3] = {
         {0.2, 0.0, 0.0},
         {0.2, 0.0, -1.0},
@@ -54,9 +93,11 @@ void desenhaCauda() {
     };
 
     glBegin(GL_QUADS);
-    glTranslatef(-0.2, -0.5, -7.5);
-    glRotatef(90, 1, 0, 0);
-    glScalef(0.7, 0.7, 0.7);
+    glClearColor(0.0, 0.0, 0.0, 0.0),
+    glColor3f(0.5, 1.0, 0.5);
+    glTranslatef(-0.2, -3, -0.2);
+    glRotatef(270, 1, 0, 0);
+    glScalef(0.8, 0.8, 0.8);
     
     glVertex3fv(cauda[0]);
     glVertex3fv(cauda[1]);
@@ -88,33 +129,24 @@ void desenhaCauda() {
     glVertex3fv(cauda[4]);
     glVertex3fv(cauda[7]);
     glEnd();
+    
+    glPopMatrix(); 
 }
 
-// Draw Cone
-void desenhaCone() {
-	glClearColor(0, 0, 0, 0);
-	glColor3f(0, 1, 0);
-    GLUquadricObj *quadric = gluNewQuadric();
-    gluQuadricTexture(quadric, GL_TRUE);
-    glPushMatrix();
-    glTranslatef(-0.1, -0.6, 0);
-    glRotatef(180, 0, 5, -5);
-    gluCylinder(quadric, 0.5, 0, 1, 12, 1);
-    glPopMatrix();
-}
-
-//Circle Body (Test)
+//Circle Body
 void Circlebody(){
+	glPushMatrix();
+	
 	GLUquadricObj *quadric = gluNewQuadric();
     gluQuadricTexture(quadric, GL_TRUE);
-    glPushMatrix();
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glColor3f(1, 1, 0);
-    glTranslatef(-0.1, 2, 0);
+    glTranslatef(0.0, 1, 0);
     glRotatef(270, 1, 0, 0);
-    glScalef(1, 1, 3.0);
+    glScalef(1, 1, 2.0);
     glDisable(GL_TEXTURE_2D);
-    gluSphere(quadric, 1, 12, 12);
+    gluSphere(quadric, 1, 150, 150);
+    
     glPopMatrix();
 }
 
@@ -122,77 +154,34 @@ void Circlebody(){
 void draw() {
     GLUquadricObj *quadric;
 
-    GLfloat body[][3] = {
-        {-0.5, 0.0, 0.5},
-        {0.5, 0.0, 0.5},
-        {0.5, 0.0, -0.5},
-        {-0.5, 0.0, -0.5},
-        {-0.5, 4.0, 0.5},
-        {0.5, 4.0, 0.5},
-        {0.5, 4.0, -0.5},
-        {-0.5, 4.0, -0.5}
-    };
-
     // Start object helicopter
     helicopter = glGenLists(1);
     glNewList(helicopter, GL_COMPILE);
 
-    // Body (Cylinder)
+    // Body-Base (Cylinder)
     quadric = gluNewQuadric();
     gluQuadricTexture(quadric, GL_TRUE);
-    gluCylinder(quadric, 0.3, 0.3, 4, 12, 3);
-    glTranslatef(0.0, 0.0, 3);
-
-    // Body (Cube)
-    glBegin(GL_QUADS);
-    glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
-    glScalef(1.5, 1.5, 1.5);
-
-    glClearColor(0.0, 0.0, 0.0, 0.0);
-    glColor4f(0, 0, 0, 0);
-
-    glVertex3fv(body[0]);
-    glVertex3fv(body[1]);
-    glVertex3fv(body[2]);
-    glVertex3fv(body[3]);
-
-    glVertex3fv(body[4]);
-    glVertex3fv(body[5]);
-    glVertex3fv(body[6]);
-    glVertex3fv(body[7]);
-
-    glVertex3fv(body[0]);
-    glVertex3fv(body[1]);
-    glVertex3fv(body[5]);
-    glVertex3fv(body[4]);
-
-    glVertex3fv(body[1]);
-    glVertex3fv(body[2]);
-    glVertex3fv(body[6]);
-    glVertex3fv(body[5]);
-
-    glVertex3fv(body[2]);
-    glVertex3fv(body[3]);
-    glVertex3fv(body[7]);
-    glVertex3fv(body[6]);
-
-    glVertex3fv(body[3]);
-    glVertex3fv(body[0]);
-    glVertex3fv(body[4]);
-    glVertex3fv(body[7]);
-
-    glEnd();
+    gluCylinder(quadric, 0.25, 0.4, 5, 100, 100);
+    glTranslatef(0.0, 0.0, 4);
+	
+	//Draw Object ajusts
+	glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
+    glScalef(1.0, 1.0, 1.0);
 
 	// Draw Body
 	Circlebody();
+	
     // Draw Cabine
     desenhaCabine();
-
-    // Draw Cauda
-    desenhaCauda();
+    
+    // Draw Nariz
+//    desenhaNariz();
     
     // Draw Cone
 	desenhaCone();
+	
+    // Draw Tail
+    desenhaCauda();
 	
 	
     glEndList();
