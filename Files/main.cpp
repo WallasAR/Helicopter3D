@@ -14,6 +14,7 @@ GLfloat look[3] = {0.0, 3.0, 0.0};
 GLfloat tetaxz = 0;
 GLfloat raioxz = 6;
 GLuint helicopter;
+GLint rotationAngle = 180;
 
 // Function that prevents distortion
 void reshape(int width, int height) {
@@ -41,7 +42,64 @@ void desenhaCabine() {
     glPopMatrix(); // Restores the previous model-view matrix so that, in case of modifications, there is no change of positions in any other function
 }
 
+// Draw propellers
+void propellers(){
+	
+	// Propellers 1
+    glPushMatrix();
+    
+    glTranslatef(0.0, 0.0, -4.0);
+    glRotatef(rotationAngle, 0.0, 1.0, 0.0);  // Rotação da hélice 1 (use uma variável para alterar o ângulo)
+    glScalef(0.5, 0.5, 0.5);
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.8, 0.8, 0.8);
+	
+	GLfloat helice1[][3] = {
+        {-0.1, 0.0, 0.1},
+        {0.5, 0.0, 0.1},
+        {0.5, 0.0, -0.1},
+        {-0.1, 0.0, -0.1},
+        	
+        {-0.1, 4.0, 0.1},
+        {0.5, 4.0, 0.1},
+        {0.5, 4.0, -0.1},
+        {-0.1, 4.0, -0.1}
+  }; 
+  	  glBegin(GL_QUADS);
+  	  glVertex3fv(helice1[0]);
+  	  glVertex3fv(helice1[1]);
+  	  glVertex3fv(helice1[2]);
+  	  glVertex3fv(helice1[3]);
+  	  
+  	  glVertex3fv(helice1[4]);
+  	  glVertex3fv(helice1[5]);
+  	  glVertex3fv(helice1[6]);
+  	  glVertex3fv(helice1[7]);
+  	  
+  	  glVertex3fv(helice1[0]);
+  	  glVertex3fv(helice1[1]);
+  	  glVertex3fv(helice1[5]);
+  	  glVertex3fv(helice1[4]);
+  	  
+  	  glVertex3fv(helice1[1]);
+  	  glVertex3fv(helice1[2]);
+  	  glVertex3fv(helice1[6]);
+  	  glVertex3fv(helice1[5]);
+  	  
+  	  glVertex3fv(helice1[2]);
+  	  glVertex3fv(helice1[3]);
+  	  glVertex3fv(helice1[7]);
+  	  glVertex3fv(helice1[6]);
+  	  
+  	  glVertex3fv(helice1[3]);
+  	  glVertex3fv(helice1[0]);
+  	  glVertex3fv(helice1[4]);
+  	  glVertex3fv(helice1[7]);
+  	  
+  glEnd();
 
+  glPopMatrix();
+}
 
 // Draw Gun
 /*void desenhaNariz() {
@@ -183,6 +241,8 @@ void draw() {
     // Draw Tail
     desenhaCauda();
 	
+	// Draw propellers
+	propellers();
 	
     glEndList();
 }
@@ -272,7 +332,7 @@ int main(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
 
-    if (!glutCreateWindow("Avião a helicopter")) {
+    if (!glutCreateWindow("Avi?o a helicopter")) {
         fprintf(stderr, "Error opening a window.\n");
         exit(-1);
     }
