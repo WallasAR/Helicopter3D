@@ -137,12 +137,12 @@ void propellers(){
 void desenhaCone() {
 	glPushMatrix();
 	
-	glClearColor(0, 0, 0, 0);
-	glColor3f(0, 1, 0);
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.8, 0.0, 0.0);
     GLUquadricObj *quadric = gluNewQuadric();
     gluQuadricTexture(quadric, GL_TRUE);
     glTranslatef(0, 0.1, -0.4);
-    glRotatef(90, 1, 0, 0);
+    glRotatef(90, 1.0, 0.0, 0.0);
     gluCylinder(quadric, 0.6, 0.0, 1.5, 100, 150);
     
     gluQuadricTexture(quadric, GL_TRUE);
@@ -159,6 +159,12 @@ void desenhaCauda() {
 	
 	glPushMatrix();
 	
+	glClearColor(0.0, 0.0, 0.0, 0.0),
+    glColor3f(0.5, 1.0, 0.5);
+    glTranslatef(-0.3, -2.8, -0.2);
+    glRotatef(270, 1, 0, 0);
+    glColor3f(0.7, 0.0, 0.0);
+	
     GLfloat cauda[][3] = {
         {0.2, 0.0, 0.0},
         {0.2, 0.0, -1.0},
@@ -172,12 +178,6 @@ void desenhaCauda() {
     };
 
     glBegin(GL_QUADS);
-    glClearColor(0.0, 0.0, 0.0, 0.0),
-    glColor3f(0.5, 1.0, 0.5);
-    glTranslatef(-0.2, -3, -0.2);
-    glRotatef(270, 1, 0, 0);
-    glScalef(0.8, 0.8, 0.8);
-    
     glVertex3fv(cauda[0]);
     glVertex3fv(cauda[1]);
     glVertex3fv(cauda[2]);
@@ -210,7 +210,9 @@ void desenhaCauda() {
     glEnd();
     
     glPopMatrix(); 
+    
 }
+
 
 //Circle Body
 void Circlebody(){
@@ -219,10 +221,10 @@ void Circlebody(){
 	GLUquadricObj *quadric = gluNewQuadric();
     gluQuadricTexture(quadric, GL_TRUE);
     glClearColor(0.0, 0.0, 0.0, 0.0);
-    glColor3f(1, 1, 0);
+    glColor3f(0.8, 0.0, 0.0);
     glTranslatef(0.0, 1, 0);
-    glRotatef(270, 1, 0, 0);
-    glScalef(1, 1, 2.0);
+    glRotatef(270, 1.0, 0.0, 0.0);
+    glScalef(1.0, 1.0, 2.0);
     glDisable(GL_TEXTURE_2D);
     gluSphere(quadric, 1, 150, 150);
     
@@ -238,6 +240,8 @@ void draw() {
     glNewList(helicopter, GL_COMPILE);
 
     // Body-Base (Cylinder)
+ 	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.7, 0.0, 0.0);
     quadric = gluNewQuadric();
     gluQuadricTexture(quadric, GL_TRUE);
     gluCylinder(quadric, 0.25, 0.4, 5, 100, 100);
@@ -290,7 +294,7 @@ void display(void) {
     glVertex3f(10, 0, -10);
     glVertex3f(-10, 0, -10);
     glEnd();
-    glTranslatef(helicopterX, helicopterY + 1, helicopterZ - 2);
+    glTranslatef(helicopterX, helicopterY + 2, helicopterZ - 4);
 	glRotatef(helicopterRotation, 0.0, 1.0, 0.0);
 
     glColor4f(0.3, 0.52, 0.18, 1.0);
@@ -327,12 +331,12 @@ void keyboard(unsigned char key, int x, int y) {
         exit(0);
         break;
     
-    case 'r':
+    case 45: // Tecla "-"
         raioxz = raioxz + 1;
         glutPostRedisplay();
         break;
     
-    case 'R':
+    case 61: // Tecla "="
         raioxz = raioxz - 1;
         if (raioxz == 0) {
             raioxz = 1;
@@ -346,18 +350,39 @@ void keyboard(unsigned char key, int x, int y) {
     	break;
     
     case 's':
+    	// Condição para impedir que o helicoptero atravesse o chão
+    	if (helicopterY > 1){
     	moveDown();
     	glutPostRedisplay();
+    	}
+    	else
+		{
+			break;
+		}
     	break;
     
     case 'a':
+ 	   // Condição para impedir que o helicoptero se mova no chão para "frente"
+    	if (helicopterY > 1 && helicopterY > helicopterX){
     	moveRight();
     	glutPostRedisplay();
+    	}
+    	else
+		{
+			break;
+		}
     	break;
     
     case 'd':
+    	// Condição para impedir que o helicoptero se mova no chão para "trás"
+    	if (helicopterY > 1 && helicopterY > helicopterX){
     	moveLeft();
     	glutPostRedisplay();
+    	}
+    	else
+		{
+			break;
+		}
     	break;
     }
 }
