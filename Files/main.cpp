@@ -31,7 +31,7 @@ void reshape(int width, int height) {
     glMatrixMode(GL_MODELVIEW);
 }
 
-//Função de movimentos do Helicoptero
+//Fun??o de movimentos do Helicoptero
 void moveUp() {
     helicopterY += 0.1;
 }
@@ -47,10 +47,8 @@ void moveLeft() {
 void moveRight() {
     helicopterZ += 0.1;
 }
-// Desenhar base do helicóptero
+// Desenhar base do helic?ptero
 void baseHelicoper(){
-	
-	
 	
 	glPushMatrix();
     
@@ -224,6 +222,30 @@ void desenhaCabine() {
     gluSphere(quadric, 0.5, 100, 150);
     
     glPopMatrix(); // Restores the previous model-view matrix so that, in case of modifications, there is no change of positions in any other function
+}
+
+void Missiles(){
+	glPushMatrix();
+	
+	GLUquadricObj *quadric = gluNewQuadric();
+	
+	gluQuadricTexture(quadric, GL_TRUE);
+	glColor3f(0.3, 0.3, 0.3);
+	glRotatef(90, 1.0, 0.0, 0.0);
+	glTranslatef(1.5, 0.0, -1.9);
+	gluCylinder(quadric, 0.001, 0.2, 0.4, 100, 150);
+	
+	glPopMatrix();
+	
+	glPushMatrix();
+	
+	gluQuadricTexture(quadric, GL_TRUE);
+	glColor3f(0.4, 0.4, 0.4);
+	glRotatef(90, 1.0, 0.0, 0.0);
+	glTranslatef(1.5, 0.0, -1.5);
+	gluCylinder(quadric, 0.19, 0.19, 1.0, 100, 150);
+	
+	glPopMatrix();
 }
 
 // Draw propellers
@@ -435,6 +457,9 @@ void draw() {
 	//Callback draw Base
 	baseHelicoper();	
 	
+	//Callback draw Missiles
+	Missiles();
+	
     glEndList();
 }
 
@@ -519,7 +544,7 @@ void keyboard(unsigned char key, int x, int y) {
     	break;
     
     case 's':
-    	// Condição para impedir que o helicoptero atravesse o chão
+    	// Condi??o para impedir que o helicoptero atravesse o ch?o
     	if (helicopterY > 0){
 			moveDown();
     		glutPostRedisplay();
@@ -531,7 +556,7 @@ void keyboard(unsigned char key, int x, int y) {
     	break;
     
     case 'a':
- 	   // Condição para impedir que o helicoptero se mova no chão para "frente"
+ 	   // Condi??o para impedir que o helicoptero se mova no ch?o para "frente"
     	if (helicopterY > 1){
     		moveRight();
     		glutPostRedisplay();
@@ -543,7 +568,7 @@ void keyboard(unsigned char key, int x, int y) {
     	break;
     
     case 'd':
-    	// Condição para impedir que o helicoptero se mova no chão para "trás"
+    	// Condi??o para impedir que o helicoptero se mova no ch?o para "tr?s"
     	if (helicopterY > 1){
     		moveLeft();
     		glutPostRedisplay();
