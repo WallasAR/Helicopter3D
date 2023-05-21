@@ -31,24 +31,187 @@ void reshape(int width, int height) {
     glMatrixMode(GL_MODELVIEW);
 }
 
-//Movement Helicopter
+//Função de movimentos do Helicoptero
 void moveUp() {
-    helicopterY += 0.1; // Altere a velocidade de acordo com a necessidade
+    helicopterY += 0.1;
 }
 
 void moveDown() {
-    helicopterY -= 0.1; // Altere a velocidade de acordo com a necessidade
+    helicopterY -= 0.1; 
 }
 
 void moveLeft() {
-    helicopterZ -= 0.1; // Altere a velocidade de acordo com a necessidade
+    helicopterZ -= 0.1; 
 }
 
 void moveRight() {
-    helicopterZ += 0.1; // Altere a velocidade de acordo com a necessidade
+    helicopterZ += 0.1;
+}
+// Desenhar base do helicóptero
+void baseHelicoper(){
+	
+	
+	
+	glPushMatrix();
+    
+    glTranslatef(-1.0, 0.0, 1.5);
+    glRotatef(rotationAngle, 0.0, 1.0, 0.0);
+    glScalef(0.5, 0.5, 0.5);
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.5, 0.0, 0.0);
+	
+	GLfloat base_rectang1[][3] = {
+        {-0.1, 0.0, 0.1},
+        {0.5, 0.0, 0.1},
+        {0.5, 0.0, -0.1},
+        {-0.1, 0.0, -0.1},
+        	
+        {-0.1, 4.0, 0.1},
+        {0.5, 4.0, 0.1},
+        {0.5, 4.0, -0.1},
+        {-0.1, 4.0, -0.1}
+  };
+ 
+  	  glBegin(GL_QUADS);
+  	  glVertex3fv(base_rectang1[0]);
+  	  glVertex3fv(base_rectang1[1]);
+  	  glVertex3fv(base_rectang1[2]);
+  	  glVertex3fv(base_rectang1[3]);
+  	  
+  	  glVertex3fv(base_rectang1[4]);
+  	  glVertex3fv(base_rectang1[5]);
+  	  glVertex3fv(base_rectang1[6]);
+  	  glVertex3fv(base_rectang1[7]);
+  	  
+  	  glVertex3fv(base_rectang1[0]);
+  	  glVertex3fv(base_rectang1[1]);
+  	  glVertex3fv(base_rectang1[5]);
+  	  glVertex3fv(base_rectang1[4]);
+  	  
+  	  glVertex3fv(base_rectang1[1]);
+  	  glVertex3fv(base_rectang1[2]);
+  	  glVertex3fv(base_rectang1[6]);
+  	  glVertex3fv(base_rectang1[5]);
+  	  
+  	  glVertex3fv(base_rectang1[2]);
+  	  glVertex3fv(base_rectang1[3]);
+  	  glVertex3fv(base_rectang1[7]);
+  	  glVertex3fv(base_rectang1[6]);
+  	  
+  	  glVertex3fv(base_rectang1[3]);
+  	  glVertex3fv(base_rectang1[0]);
+  	  glVertex3fv(base_rectang1[4]);
+  	  glVertex3fv(base_rectang1[7]);  	  
+  	  glEnd();
+
+	glPopMatrix();
+  
+  	glPushMatrix();
+    
+    glTranslatef(1.0, 0.0, 1.5);
+    glRotatef(rotationAngle, 0.0, 1.0, 0.0);
+    glScalef(0.5, 0.5, 0.5);
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.5, 0.0, 0.0);
+	
+	GLfloat base_rectang2[][3] = {
+        {-0.1, 0.0, 0.1},
+        {0.5, 0.0, 0.1},
+        {0.5, 0.0, -0.1},
+        {-0.1, 0.0, -0.1},
+        	
+        {-0.1, 4.0, 0.1},
+        {0.5, 4.0, 0.1},
+        {0.5, 4.0, -0.1},
+        {-0.1, 4.0, -0.1}
+  };
+ 
+  	  glBegin(GL_QUADS);
+  	  glVertex3fv(base_rectang2[0]);
+  	  glVertex3fv(base_rectang2[1]);
+  	  glVertex3fv(base_rectang2[2]);
+  	  glVertex3fv(base_rectang2[3]);
+  	  
+  	  glVertex3fv(base_rectang2[4]);
+  	  glVertex3fv(base_rectang2[5]);
+  	  glVertex3fv(base_rectang2[6]);
+  	  glVertex3fv(base_rectang2[7]);
+  	  
+  	  glVertex3fv(base_rectang2[0]);
+  	  glVertex3fv(base_rectang2[1]);
+  	  glVertex3fv(base_rectang2[5]);
+  	  glVertex3fv(base_rectang2[4]);
+  	  
+  	  glVertex3fv(base_rectang2[1]);
+  	  glVertex3fv(base_rectang2[2]);
+  	  glVertex3fv(base_rectang2[6]);
+  	  glVertex3fv(base_rectang2[5]);
+  	  
+  	  glVertex3fv(base_rectang2[2]);
+  	  glVertex3fv(base_rectang2[3]);
+  	  glVertex3fv(base_rectang2[7]);
+  	  glVertex3fv(base_rectang2[6]);
+  	  
+  	  glVertex3fv(base_rectang2[3]);
+  	  glVertex3fv(base_rectang2[0]);
+  	  glVertex3fv(base_rectang2[4]);
+  	  glVertex3fv(base_rectang2[7]);
+  	  glEnd();
+
+	glPopMatrix();
+  
+    glPushMatrix();
+    
+  	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.8, 0.0, 0.0);
+    GLUquadricObj *quadric = gluNewQuadric();
+    gluQuadricTexture(quadric, GL_TRUE);
+    glTranslatef(0, 0.1, 0.8);
+    glScalef(0.5, 0.5, 0.5);
+    glRotatef(60, 0.0, 1.0, 0.0);
+    gluCylinder(quadric, 0.1, 0.1, 2.7, 100, 150);
+    
+    glPopMatrix();    
+    
+	glPushMatrix();
+    
+  	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.8, 0.0, 0.0);
+    gluQuadricTexture(quadric, GL_TRUE);
+    glTranslatef(0, 0.1, 0.8);
+    glScalef(0.5, 0.5, 0.5);
+    glRotatef(-55, 0.0, 1.0, 0.0);
+    gluCylinder(quadric, 0.1, 0.1, 2.4, 100, 150);
+    
+    glPopMatrix();   
+    
+	glPushMatrix();
+    
+  	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.8, 0.0, 0.0);
+    gluQuadricTexture(quadric, GL_TRUE);
+    glTranslatef(0, 1.9, 0.8);
+    glScalef(0.5, 0.5, 0.5);
+    glRotatef(60, 0.0, 1.0, 0.0);
+    gluCylinder(quadric, 0.1, 0.1, 2.7, 100, 150);
+    
+    glPopMatrix();    
+    
+	glPushMatrix();
+    
+  	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.8, 0.0, 0.0);
+    gluQuadricTexture(quadric, GL_TRUE);
+    glTranslatef(0, 1.9, 0.8);
+    glScalef(0.5, 0.5, 0.5);
+    glRotatef(-55, 0.0, 1.0, 0.0);
+    gluCylinder(quadric, 0.1, 0.1, 2.4, 100, 150);
+    
+    glPopMatrix();  
+    
 }
 
-// Draw Cabine
+// Desenhar Cabine
 void desenhaCabine() {
 	glPushMatrix();  // Saves the current model-view matrix
 	
@@ -69,7 +232,7 @@ void propellers(){
 	// Propellers 1
     glPushMatrix();
     
-    glTranslatef(0.0, 0.0, -4.0);
+    glTranslatef(-0.1, 0.0, -2.0);
     glRotatef(rotationAngle, 0.0, 1.0, 0.0);  // Rota??o da h?lice 1 (use uma vari?vel para alterar o ?ngulo)
     glScalef(0.5, 0.5, 0.5);
 	glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -120,6 +283,7 @@ void propellers(){
   glEnd();
 
   glPopMatrix();
+  
 }
 
 // Draw Gun
@@ -133,10 +297,10 @@ void propellers(){
     glPopMatrix();
 }*/
 	
-// Draw Cone
+// Desenhar cilindros de cima
 void desenhaCone() {
 	glPushMatrix();
-	
+	 
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glColor3f(0.8, 0.0, 0.0);
     GLUquadricObj *quadric = gluNewQuadric();
@@ -210,7 +374,6 @@ void desenhaCauda() {
     glEnd();
     
     glPopMatrix(); 
-    
 }
 
 
@@ -251,23 +414,26 @@ void draw() {
 	glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
     glScalef(1.0, 1.0, 1.0);
 
-	// Draw Body
+	//Callback draw Body
 	Circlebody();
 	
-    // Draw Cabine
+    //Callback draw Cabine
     desenhaCabine();
     
-    // Draw Nariz
+    //Callback draw Nariz
 //    desenhaNariz();
     
-    // Draw Cone
+    //Callback draw Cone
 	desenhaCone();
 	
-    // Draw Tail
+    //Callback draw Tail
     desenhaCauda();
 	
-	// Draw propellers
+	//Callback draw propellers
 	propellers();
+	
+	//Callback draw Base
+	baseHelicoper();	
 	
     glEndList();
 }
@@ -294,7 +460,7 @@ void display(void) {
     glVertex3f(10, 0, -10);
     glVertex3f(-10, 0, -10);
     glEnd();
-    glTranslatef(helicopterX, helicopterY + 2, helicopterZ - 4);
+    glTranslatef(helicopterX, helicopterY + 1.7, helicopterZ - 4);
 	glRotatef(helicopterRotation, 0.0, 1.0, 0.0);
 
     glColor4f(0.3, 0.52, 0.18, 1.0);
@@ -310,14 +476,17 @@ void special(int key, int x, int y) {
         view[1] = view[1] + 1;
         glutPostRedisplay();
         break;
+    
     case GLUT_KEY_DOWN:
         view[1] = view[1] - 1;
         glutPostRedisplay();
         break;
+    
     case GLUT_KEY_LEFT:
         tetaxz = tetaxz + 2;
         glutPostRedisplay();
         break;
+    
     case GLUT_KEY_RIGHT:
         tetaxz = tetaxz - 2;
         glutPostRedisplay();
@@ -351,9 +520,9 @@ void keyboard(unsigned char key, int x, int y) {
     
     case 's':
     	// Condição para impedir que o helicoptero atravesse o chão
-    	if (helicopterY > 1){
-    	moveDown();
-    	glutPostRedisplay();
+    	if (helicopterY > 0){
+			moveDown();
+    		glutPostRedisplay();
     	}
     	else
 		{
@@ -363,9 +532,9 @@ void keyboard(unsigned char key, int x, int y) {
     
     case 'a':
  	   // Condição para impedir que o helicoptero se mova no chão para "frente"
-    	if (helicopterY > 1 && helicopterY > helicopterX){
-    	moveRight();
-    	glutPostRedisplay();
+    	if (helicopterY > 1){
+    		moveRight();
+    		glutPostRedisplay();
     	}
     	else
 		{
@@ -375,9 +544,9 @@ void keyboard(unsigned char key, int x, int y) {
     
     case 'd':
     	// Condição para impedir que o helicoptero se mova no chão para "trás"
-    	if (helicopterY > 1 && helicopterY > helicopterX){
-    	moveLeft();
-    	glutPostRedisplay();
+    	if (helicopterY > 1){
+    		moveLeft();
+    		glutPostRedisplay();
     	}
     	else
 		{
@@ -401,7 +570,7 @@ int main(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
 
-    if (!glutCreateWindow("Avi?o a helicopter")) {
+    if (!glutCreateWindow("3DHelicopter")) {
         fprintf(stderr, "Error opening a window.\n");
         exit(-1);
     }
