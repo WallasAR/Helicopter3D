@@ -7,18 +7,30 @@
 #define PI 3.1415
 
 // Variables
+
+	//Window
 GLint WIDTH = 800;
 GLint HEIGHT = 600;
+
+	//View
 GLfloat view[3] = {0.0, 7.0, 0.0};
 GLfloat look[3] = {0.0, 3.0, 0.0};
 GLfloat tetaxz = 0;
 GLfloat raioxz = 6;
+
+	//Hellicopter
 GLuint helicopter;
 GLint rotationAngle = 0;
 GLfloat helicopterX = 0.0;
 GLfloat helicopterY = 0.0;
 GLfloat helicopterZ = 0.0;
 GLfloat helicopterRotation = 0.0;
+
+	//animation missile
+GLfloat missilePositionZ = 0.0;    // Posição do míssil no eixo Z
+bool missileLaunched = false;     // Indica se o míssil foi lançado
+GLfloat missileSpeed = 0.05;       // Velocidade do míssil
+
 
 // Function that prevents distortion
 void reshape(int width, int height) {
@@ -31,7 +43,18 @@ void reshape(int width, int height) {
     glMatrixMode(GL_MODELVIEW);
 }
 
-//Fun??o de movimentos do Helicoptero
+void update_Missiles(int value) {
+    // Atualiza a posição do míssil
+     missilePositionZ += missileSpeed;
+
+    // Redesenha a cena
+    glutPostRedisplay();
+
+    // Define o próximo intervalo de atualização
+    glutTimerFunc(16, update_Missiles, 0); // 60 FPS (1000ms / 60 = 16.67ms)
+}
+
+//Funcao de movimentos do helicoptero
 void moveUp() {
     helicopterY += 0.1;
 }
@@ -47,7 +70,8 @@ void moveLeft() {
 void moveRight() {
     helicopterZ += 0.1;
 }
-// Desenhar base do helic?ptero
+
+// Desenhar base do helicoptero
 void baseHelicoper(){
 	
 	glPushMatrix();
@@ -224,6 +248,7 @@ void desenhaCabine() {
     glPopMatrix(); // Restores the previous model-view matrix so that, in case of modifications, there is no change of positions in any other function
 }
 
+//Desenhar mísseis
 void Missiles(){
 	glPushMatrix();
 	
@@ -232,7 +257,12 @@ void Missiles(){
 	gluQuadricTexture(quadric, GL_TRUE);
 	glColor3f(0.3, 0.3, 0.3);
 	glRotatef(90, 1.0, 0.0, 0.0);
-	glTranslatef(1.5, 0.0, -1.9);
+	glTranslatef(1.5, 0.0, -2.3);
+	
+	if (missileLaunched == true){
+		glTranslatef(1.5, 0.0, -missilePositionZ);
+	}
+	
 	gluCylinder(quadric, 0.001, 0.2, 0.4, 100, 150);
 	
 	glPopMatrix();
@@ -242,7 +272,12 @@ void Missiles(){
 	gluQuadricTexture(quadric, GL_TRUE);
 	glColor3f(0.4, 0.4, 0.4);
 	glRotatef(90, 1.0, 0.0, 0.0);
-	glTranslatef(1.5, 0.0, -1.5);
+	glTranslatef(1.5, 0.0, -1.9);
+	
+	if (missileLaunched == true){
+		glTranslatef(1.5, 0.0, -missilePositionZ);
+	}
+	
 	gluCylinder(quadric, 0.19, 0.19, 1.0, 100, 150);
 	
 	glPopMatrix();
@@ -340,7 +375,7 @@ void desenhaCone() {
     glPopMatrix();
 }
 
-// Draw Cauda
+// Desenhar Cauda
 void desenhaCauda() {
 	
 	glPushMatrix();
@@ -418,6 +453,7 @@ void Circlebody(){
 
 // Draw Helicopter
 void draw() {
+	
     GLUquadricObj *quadric;
 
     // Start object helicopter
@@ -458,12 +494,12 @@ void draw() {
 	baseHelicoper();	
 	
 	//Callback draw Missiles
-	Missiles();
+	//Missiles();
 	
     glEndList();
 }
 
-
+//Funcao que configura a movimentacao da camera e atualiza as animacoes
 void display(void) {
     glEnable(GL_DEPTH_TEST);
 
@@ -485,40 +521,43 @@ void display(void) {
     glVertex3f(10, 0, -10);
     glVertex3f(-10, 0, -10);
     glEnd();
+    
     glTranslatef(helicopterX, helicopterY + 1.7, helicopterZ - 4);
 	glRotatef(helicopterRotation, 0.0, 1.0, 0.0);
 
     glColor4f(0.3, 0.52, 0.18, 1.0);
-    glCallList(helicopter);
-
+	glCallList(helicopter);
+	
+	Missiles();
+	
     glPopMatrix();
     glutSwapBuffers();
+    
 }
 
+//Captura de eventos no teclado para movimentacao da camera
 void special(int key, int x, int y) {
     switch (key) {
     case GLUT_KEY_UP:
         view[1] = view[1] + 1;
-        glutPostRedisplay();
         break;
     
     case GLUT_KEY_DOWN:
         view[1] = view[1] - 1;
-        glutPostRedisplay();
         break;
     
     case GLUT_KEY_LEFT:
         tetaxz = tetaxz + 2;
-        glutPostRedisplay();
         break;
     
     case GLUT_KEY_RIGHT:
         tetaxz = tetaxz - 2;
-        glutPostRedisplay();
         break;
     }
+    glutPostRedisplay();
 }
 
+//Captura de eventos no tecado para movimentacao do helicoptero
 void keyboard(unsigned char key, int x, int y) {
     switch (key) {
     case 27:
@@ -527,7 +566,6 @@ void keyboard(unsigned char key, int x, int y) {
     
     case 45: // Tecla "-"
         raioxz = raioxz + 1;
-        glutPostRedisplay();
         break;
     
     case 61: // Tecla "="
@@ -535,19 +573,16 @@ void keyboard(unsigned char key, int x, int y) {
         if (raioxz == 0) {
             raioxz = 1;
         }
-        glutPostRedisplay();
         break;
     
     case 'w':
     	moveUp();
-    	glutPostRedisplay();
     	break;
     
     case 's':
     	// Condi??o para impedir que o helicoptero atravesse o ch?o
     	if (helicopterY > 0){
 			moveDown();
-    		glutPostRedisplay();
     	}
     	else
 		{
@@ -556,10 +591,9 @@ void keyboard(unsigned char key, int x, int y) {
     	break;
     
     case 'a':
- 	   // Condi??o para impedir que o helicoptero se mova no ch?o para "frente"
+ 	   // Condicao para impedir que o helicoptero se mova no ch?o para "frente"
     	if (helicopterY > 1){
     		moveRight();
-    		glutPostRedisplay();
     	}
     	else
 		{
@@ -568,29 +602,33 @@ void keyboard(unsigned char key, int x, int y) {
     	break;
     
     case 'd':
-    	// Condi??o para impedir que o helicoptero se mova no ch?o para "tr?s"
+    	// Condicao para impedir que o helicoptero se mova no ch?o para "tras"
     	if (helicopterY > 1){
     		moveLeft();
-    		glutPostRedisplay();
     	}
     	else
 		{
 			break;
 		}
-    	break;
+    
+	case 'r':
+    	missileLaunched = true;
+    	
+    break;	
+
+    glutPostRedisplay();
     }
 }
 
+// Funcao para configurar texturas e efeitos
 void init() {
-    draw();
-    glShadeModel(GL_FLAT);
+	draw();
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
-
+// Main
 int main(int argc, char** argv) {
-    glutInitWindowPosition(0, 0);
     glutInitWindowSize(WIDTH, HEIGHT);
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
@@ -600,12 +638,15 @@ int main(int argc, char** argv) {
         exit(-1);
     }
 
-    init();
-
+	glutReshapeFunc(reshape);
+	glutDisplayFunc(display);
     glutKeyboardFunc(keyboard);
     glutSpecialFunc(special);
-    glutDisplayFunc(display);
-    glutReshapeFunc(reshape);
+    
+    init();
+    
+    glutTimerFunc(0, update_Missiles, 0); // Inicia a atualização da animação
+    
     glutMainLoop();
 
     return 0;
