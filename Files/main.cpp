@@ -26,14 +26,14 @@ GLfloat helicopterZ = 0.0;
 GLfloat helicopterRotation = 0.0;
 
 	//animation propellers
-GLint rotationAngle = 180;
-GLfloat propellersSpeed = 1.0;
+GLint rotationAngle = 150;
+GLfloat propellersSpeed = 15.0;
 bool propellersEnable = false;
 
 	//animation missile
-GLfloat missilePositionZ = -1.5;    // Posi??o do m?ssil no eixo Z
-bool missileLaunched = false;     // Indica se o m?ssil foi lan?ado
-GLfloat missileSpeed = 0.05;       // Velocidade do m?ssil
+GLfloat missilePositionZ = -1.5;
+bool missileLaunched = false;
+GLfloat missileSpeed = 0.05;
 
 
 // Function that prevents distortion
@@ -48,13 +48,13 @@ void reshape(int width, int height) {
 }
 
 void update_Missiles(int value) {
-    // Atualiza a posi??o do m?ssil
+    // Atualiza a posicao do missil
      missilePositionZ += missileSpeed;
 
     // Redesenha a cena
     glutPostRedisplay();
 
-    // Define o pr?ximo intervalo de atualiza??o
+    // Define o proximo intervalo de atualiza??o
     glutTimerFunc(16, update_Missiles, 0); // 60 FPS (1000ms / 60 = 16.67ms)
 }
 
@@ -260,7 +260,7 @@ void desenhaCabine() {
     glPopMatrix(); // Restores the previous model-view matrix so that, in case of modifications, there is no change of positions in any other function
 }
 
-//Desenhar m?sseis
+//Desenhar misseis
 void Missiles(){
 	glPushMatrix();
 	
@@ -469,7 +469,7 @@ void desenhaCauda() {
         {0.2, 0.0, -1.0},
         {0.2, 1.0, -1.0},
         {0.2, 0.0, 0.0},
-        	
+
         {0.4, 0.0, 0.0},
         {0.4, 0.0, -1.0},
         {0.4, 1.0, -1.0},
@@ -650,14 +650,16 @@ void keyboard(unsigned char key, int x, int y) {
         break;
 
 	case 'w':
+		if (propellersEnable == true){
     	moveUp();
     	break;
-    
+    	}
     case 's':
     	// Condi??o para impedir que o helicoptero atravesse o ch?o
-    	if (helicopterY > 0){
+    	if (helicopterY > 0 && propellersEnable == true){
 			moveDown();
     	}
+    	
     	else
 		{
 			break;
@@ -666,7 +668,7 @@ void keyboard(unsigned char key, int x, int y) {
     
     case 'a':
  	   // Condicao para impedir que o helicoptero se mova no ch?o para "frente"
-    	if (helicopterY > 1){
+    	if (helicopterY > 1 && propellersEnable == true){
     		moveRight();
     	}
     	else
@@ -677,7 +679,7 @@ void keyboard(unsigned char key, int x, int y) {
     
     case 'd':
     	// Condicao para impedir que o helicoptero se mova no ch?o para "tras"
-    	if (helicopterY > 1){
+    	if (helicopterY > 1 && propellersEnable == true){
     		moveLeft();
     	}
     	else
@@ -723,10 +725,10 @@ int main(int argc, char** argv) {
     
     init();
     
-    glutTimerFunc(0, update_Missiles, 0); // Inicia a atualização da animação dos misseis
+    glutTimerFunc(0, update_Missiles, 0); // Inicia a atualiza??o da anima??o dos misseis
     
     
-    glutTimerFunc(0, update_Propellers, 0); // Inicia a atualização da animação das helices
+    glutTimerFunc(0, update_Propellers, 0); // Inicia a atualiza??o da anima??o das helices
     
     glutMainLoop();
 
