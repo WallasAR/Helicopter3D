@@ -31,7 +31,7 @@ GLfloat propellersSpeed = 15.0;
 bool propellersEnable = false;
 
 	//animation missile
-GLfloat missilePositionZ = -1.5;
+GLfloat missilePositionZ = 0.1;
 bool missileLaunched = false;
 GLfloat missileSpeed = 0.05;
 
@@ -49,8 +49,9 @@ void reshape(int width, int height) {
 
 void update_Missiles(int value) {
     // Atualiza a posicao do missil
+    if(missileLaunched == true){
      missilePositionZ += missileSpeed;
-
+	 }
     // Redesenha a cena
     glutPostRedisplay();
 
@@ -89,7 +90,7 @@ void baseHelicoper(){
 	glPushMatrix();
     
     glTranslatef(-1.0, 0.0, 1.5);
-    glRotatef(rotationAngle, 0.0, 1.0, 0.0);
+    glRotatef(180, 0.0, 1.0, 0.0);
     glScalef(0.5, 0.5, 0.5);
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glColor3f(0.5, 0.0, 0.0);
@@ -143,7 +144,7 @@ void baseHelicoper(){
   	glPushMatrix();
     
     glTranslatef(1.0, 0.0, 1.5);
-    glRotatef(rotationAngle, 0.0, 1.0, 0.0);
+    glRotatef(180, 0.0, 1.0, 0.0);
     glScalef(0.5, 0.5, 0.5);
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glColor3f(0.5, 0.0, 0.0);
@@ -272,7 +273,7 @@ void Missiles(){
 	glTranslatef(1.5, 0.0, -2.3);
 	
 	if (missileLaunched == true){
-		glTranslatef(-0.2, 0.0, -missilePositionZ);
+		glTranslatef(-0.1, 0.2, -missilePositionZ);
 	}
 	
 	gluCylinder(quadric, 0.001, 0.2, 0.4, 100, 150);
@@ -287,7 +288,7 @@ void Missiles(){
 	glTranslatef(1.5, 0.0, -1.9);
 	
 	if (missileLaunched == true){
-		glTranslatef(-0.2, 0.0, -missilePositionZ);
+		glTranslatef(-0.1, 0.2, -missilePositionZ);
 	}
 	
 	gluCylinder(quadric, 0.19, 0.19, 1.0, 100, 150);
@@ -602,7 +603,7 @@ void display(void) {
 	
 	propellers();
 	
-	Missiles();
+	Missiles();	
 	
     glPopMatrix();
     glutSwapBuffers();
