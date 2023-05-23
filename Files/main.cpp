@@ -26,12 +26,12 @@ GLfloat helicopterZ = 0.0;
 GLfloat helicopterRotation = 0.0;
 
 	//animation propellers
-GLint rotationAngle = 0;
+GLint rotationAngle = 180;
 GLfloat propellersSpeed = 1.0;
 bool propellersEnable = false;
 
 	//animation missile
-GLfloat missilePositionZ = 0.0;    // Posi??o do m?ssil no eixo Z
+GLfloat missilePositionZ = -1.5;    // Posi??o do m?ssil no eixo Z
 bool missileLaunched = false;     // Indica se o m?ssil foi lan?ado
 GLfloat missileSpeed = 0.05;       // Velocidade do m?ssil
 
@@ -272,7 +272,7 @@ void Missiles(){
 	glTranslatef(1.5, 0.0, -2.3);
 	
 	if (missileLaunched == true){
-		glTranslatef(1.5, 0.0, -missilePositionZ);
+		glTranslatef(-0.2, 0.0, -missilePositionZ);
 	}
 	
 	gluCylinder(quadric, 0.001, 0.2, 0.4, 100, 150);
@@ -287,7 +287,7 @@ void Missiles(){
 	glTranslatef(1.5, 0.0, -1.9);
 	
 	if (missileLaunched == true){
-		glTranslatef(1.5, 0.0, -missilePositionZ);
+		glTranslatef(-0.2, 0.0, -missilePositionZ);
 	}
 	
 	gluCylinder(quadric, 0.19, 0.19, 1.0, 100, 150);
@@ -648,8 +648,8 @@ void keyboard(unsigned char key, int x, int y) {
             raioxz = 1;
         }
         break;
-    
-    case 'w':
+
+	case 'w':
     	moveUp();
     	break;
     
@@ -694,7 +694,8 @@ void keyboard(unsigned char key, int x, int y) {
  		break;	
 
     glutPostRedisplay();
-    }
+	}
+    
 }
 
 // Funcao para configurar texturas e efeitos
