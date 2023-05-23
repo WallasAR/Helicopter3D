@@ -20,16 +20,20 @@ GLfloat raioxz = 6;
 
 	//Hellicopter
 GLuint helicopter;
-GLint rotationAngle = 0;
 GLfloat helicopterX = 0.0;
 GLfloat helicopterY = 0.0;
 GLfloat helicopterZ = 0.0;
 GLfloat helicopterRotation = 0.0;
 
+	//animation propellers
+GLint rotationAngle = 0;
+GLfloat propellersSpeed = 1.0;
+bool propellersEnable = false;
+
 	//animation missile
-GLfloat missilePositionZ = 0.0;    // Posição do míssil no eixo Z
-bool missileLaunched = false;     // Indica se o míssil foi lançado
-GLfloat missileSpeed = 0.05;       // Velocidade do míssil
+GLfloat missilePositionZ = 0.0;    // Posi??o do m?ssil no eixo Z
+bool missileLaunched = false;     // Indica se o m?ssil foi lan?ado
+GLfloat missileSpeed = 0.05;       // Velocidade do m?ssil
 
 
 // Function that prevents distortion
@@ -44,14 +48,22 @@ void reshape(int width, int height) {
 }
 
 void update_Missiles(int value) {
-    // Atualiza a posição do míssil
+    // Atualiza a posi??o do m?ssil
      missilePositionZ += missileSpeed;
 
     // Redesenha a cena
     glutPostRedisplay();
 
-    // Define o próximo intervalo de atualização
+    // Define o pr?ximo intervalo de atualiza??o
     glutTimerFunc(16, update_Missiles, 0); // 60 FPS (1000ms / 60 = 16.67ms)
+}
+
+void update_Propellers(int value){
+	rotationAngle += propellersSpeed;
+	
+	glutPostRedisplay();
+	
+	glutTimerFunc(16, update_Propellers, 0);
 }
 
 //Funcao de movimentos do helicoptero
@@ -248,7 +260,7 @@ void desenhaCabine() {
     glPopMatrix(); // Restores the previous model-view matrix so that, in case of modifications, there is no change of positions in any other function
 }
 
-//Desenhar mísseis
+//Desenhar m?sseis
 void Missiles(){
 	glPushMatrix();
 	
@@ -289,54 +301,120 @@ void propellers(){
 	// Propellers 1
     glPushMatrix();
     
+	GLfloat helice1[][3] = {
+		{-0.1, 0.0, 0.1},
+		{0.5, 0.0, 0.1},
+		{0.5, 0.0, -0.1},
+		{-0.1, 0.0, -0.1},
+		
+		{-0.1, 4.0, 0.1},
+		{0.5, 4.0, 0.1},
+		{0.5, 4.0, -0.1},
+		{-0.1, 4.0, -0.1}
+}; 
+    
     glTranslatef(-0.1, 0.0, -2.0);
-    glRotatef(rotationAngle, 0.0, 1.0, 0.0);  // Rota??o da h?lice 1 (use uma vari?vel para alterar o ?ngulo)
+    glRotatef(180, 1.0, 0.0, 0.0);
     glScalef(0.5, 0.5, 0.5);
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glColor3f(0.8, 0.8, 0.8);
 	
-	GLfloat helice1[][3] = {
+	if (propellersEnable == true){
+		glRotatef(rotationAngle ,0.0, 0.0 , 20.0);
+	}
+	
+	glBegin(GL_QUADS);
+	glVertex3fv(helice1[0]);
+	glVertex3fv(helice1[1]);
+	glVertex3fv(helice1[2]);
+    glVertex3fv(helice1[3]);
+    
+	glVertex3fv(helice1[4]);
+	glVertex3fv(helice1[5]);
+    glVertex3fv(helice1[6]);
+	glVertex3fv(helice1[7]);
+	
+	glVertex3fv(helice1[0]);
+	glVertex3fv(helice1[1]);
+	glVertex3fv(helice1[5]);
+	glVertex3fv(helice1[4]);
+	
+	glVertex3fv(helice1[1]);
+	glVertex3fv(helice1[2]);
+	glVertex3fv(helice1[6]);
+	glVertex3fv(helice1[5]);
+	
+	glVertex3fv(helice1[2]);
+	glVertex3fv(helice1[3]);
+	glVertex3fv(helice1[7]);
+	glVertex3fv(helice1[6]);
+	
+	glVertex3fv(helice1[3]);
+	glVertex3fv(helice1[0]);
+	glVertex3fv(helice1[4]);
+	glVertex3fv(helice1[7]);
+  	  
+  glEnd();
+
+  glPopMatrix();
+  
+  // Propellers 2
+    glPushMatrix();
+
+	GLfloat helice2[][3] = {
         {-0.1, 0.0, 0.1},
         {0.5, 0.0, 0.1},
         {0.5, 0.0, -0.1},
         {-0.1, 0.0, -0.1},
-        	
+
         {-0.1, 4.0, 0.1},
         {0.5, 4.0, 0.1},
         {0.5, 4.0, -0.1},
         {-0.1, 4.0, -0.1}
-  }; 
+  };
+	
+    glTranslatef(0.1, 0.0, -2.0);
+    glRotatef(180, 0.0, 1.0, 0.0); 
+    glScalef(0.5, 0.5, 0.5);
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.8, 0.8, 0.8);
+
+	if (propellersEnable == true){
+		glRotatef(rotationAngle, 0.0, 0.0, 20.0);
+	}
+	
+	 
   	  glBegin(GL_QUADS);
-  	  glVertex3fv(helice1[0]);
-  	  glVertex3fv(helice1[1]);
-  	  glVertex3fv(helice1[2]);
-  	  glVertex3fv(helice1[3]);
-  	  
-  	  glVertex3fv(helice1[4]);
-  	  glVertex3fv(helice1[5]);
-  	  glVertex3fv(helice1[6]);
-  	  glVertex3fv(helice1[7]);
-  	  
-  	  glVertex3fv(helice1[0]);
-  	  glVertex3fv(helice1[1]);
-  	  glVertex3fv(helice1[5]);
-  	  glVertex3fv(helice1[4]);
-  	  
-  	  glVertex3fv(helice1[1]);
-  	  glVertex3fv(helice1[2]);
-  	  glVertex3fv(helice1[6]);
-  	  glVertex3fv(helice1[5]);
-  	  
-  	  glVertex3fv(helice1[2]);
-  	  glVertex3fv(helice1[3]);
-  	  glVertex3fv(helice1[7]);
-  	  glVertex3fv(helice1[6]);
-  	  
-  	  glVertex3fv(helice1[3]);
-  	  glVertex3fv(helice1[0]);
-  	  glVertex3fv(helice1[4]);
-  	  glVertex3fv(helice1[7]);
-  	  
+  	  glVertex3fv(helice2[0]);
+  	  glVertex3fv(helice2[1]);
+  	  glVertex3fv(helice2[2]);
+  	  glVertex3fv(helice2[3]);
+
+  	  glVertex3fv(helice2[4]);
+  	  glVertex3fv(helice2[5]);
+  	  glVertex3fv(helice2[6]);
+  	  glVertex3fv(helice2[7]);
+
+  	  glVertex3fv(helice2[0]);
+  	  glVertex3fv(helice2[1]);
+  	  glVertex3fv(helice2[5]);
+  	  glVertex3fv(helice2[4]);
+
+  	  glVertex3fv(helice2[1]);
+  	  glVertex3fv(helice2[2]);
+  	  glVertex3fv(helice2[6]);
+  	  glVertex3fv(helice2[5]);
+
+  	  glVertex3fv(helice2[2]);
+  	  glVertex3fv(helice2[3]);
+  	  glVertex3fv(helice2[7]);
+  	  glVertex3fv(helice2[6]);
+
+  	  glVertex3fv(helice2[3]);
+  	  glVertex3fv(helice2[0]);
+  	  glVertex3fv(helice2[4]);
+  	  glVertex3fv(helice2[7]);
+
   glEnd();
 
   glPopMatrix();
@@ -487,14 +565,8 @@ void draw() {
     //Callback draw Tail
     desenhaCauda();
 	
-	//Callback draw propellers
-	propellers();
-	
 	//Callback draw Base
 	baseHelicoper();	
-	
-	//Callback draw Missiles
-	//Missiles();
 	
     glEndList();
 }
@@ -527,6 +599,8 @@ void display(void) {
 
     glColor4f(0.3, 0.52, 0.18, 1.0);
 	glCallList(helicopter);
+	
+	propellers();
 	
 	Missiles();
 	
@@ -613,8 +687,11 @@ void keyboard(unsigned char key, int x, int y) {
     
 	case 'r':
     	missileLaunched = true;
+    	break;
     	
-    break;	
+	case 'q':
+ 		propellersEnable = true;
+ 		break;	
 
     glutPostRedisplay();
     }
@@ -645,7 +722,10 @@ int main(int argc, char** argv) {
     
     init();
     
-    glutTimerFunc(0, update_Missiles, 0); // Inicia a atualização da animação
+    glutTimerFunc(0, update_Missiles, 0); // Inicia a atualização da animação dos misseis
+    
+    
+    glutTimerFunc(0, update_Propellers, 0); // Inicia a atualização da animação das helices
     
     glutMainLoop();
 
