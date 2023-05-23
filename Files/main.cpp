@@ -90,7 +90,7 @@ void baseHelicoper(){
 	
 	glPushMatrix();
     
-    glTranslatef(-1.0, 0.0, 1.5);
+    glTranslatef(-0.8, 0.0, 1.5);
     glRotatef(180, 0.0, 1.0, 0.0);
     glScalef(0.5, 0.5, 0.5);
 	glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -204,8 +204,8 @@ void baseHelicoper(){
     gluQuadricTexture(quadric, GL_TRUE);
     glTranslatef(0, 0.1, 0.8);
     glScalef(0.5, 0.5, 0.5);
-    glRotatef(60, 0.0, 1.0, 0.0);
-    gluCylinder(quadric, 0.1, 0.1, 2.7, 100, 150);
+    glRotatef(55, 0.0, 1.0, 0.0);
+    gluCylinder(quadric, 0.2, 0.2, 2.4, 100, 150);
     
     glPopMatrix();    
     
@@ -217,7 +217,7 @@ void baseHelicoper(){
     glTranslatef(0, 0.1, 0.8);
     glScalef(0.5, 0.5, 0.5);
     glRotatef(-55, 0.0, 1.0, 0.0);
-    gluCylinder(quadric, 0.1, 0.1, 2.4, 100, 150);
+    gluCylinder(quadric, 0.2, 0.2, 2.4, 100, 150);
     
     glPopMatrix();   
     
@@ -228,8 +228,8 @@ void baseHelicoper(){
     gluQuadricTexture(quadric, GL_TRUE);
     glTranslatef(0, 1.9, 0.8);
     glScalef(0.5, 0.5, 0.5);
-    glRotatef(60, 0.0, 1.0, 0.0);
-    gluCylinder(quadric, 0.1, 0.1, 2.7, 100, 150);
+    glRotatef(55, 0.0, 1.0, 0.0);
+    gluCylinder(quadric, 0.2, 0.2, 2.4, 100, 150);
     
     glPopMatrix();    
     
@@ -241,7 +241,7 @@ void baseHelicoper(){
     glTranslatef(0, 1.9, 0.8);
     glScalef(0.5, 0.5, 0.5);
     glRotatef(-55, 0.0, 1.0, 0.0);
-    gluCylinder(quadric, 0.1, 0.1, 2.4, 100, 150);
+    gluCylinder(quadric, 0.2, 0.2, 2.4, 100, 150);
     
     glPopMatrix();  
     
@@ -315,7 +315,7 @@ void propellers(){
 		{-0.1, 4.0, -0.1}
 }; 
     
-    glTranslatef(-0.1, 0.0, -2.0);
+    glTranslatef(0.1, 0.0, -2.0);
     glRotatef(180, 1.0, 0.0, 0.0);
     glScalef(0.5, 0.5, 0.5);
 	glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -774,13 +774,14 @@ void keyboard(unsigned char key, int x, int y) {
 
 	case 'w':
 		if (propellersEnable == true){
-    	moveUp();
-    	break;
+    		moveUp();
+    		break;
     	}
     case 's':
     	// Condi??o para impedir que o helicoptero atravesse o ch?o
     	if (helicopterY > 0 && propellersEnable == true){
 			moveDown();
+			break;
     	}
     	
     	else
@@ -793,6 +794,7 @@ void keyboard(unsigned char key, int x, int y) {
  	   // Condicao para impedir que o helicoptero se mova no ch?o para "frente"
     	if (helicopterY > 1 && propellersEnable == true){
     		moveRight();
+    		break;
     	}
     	else
 		{
@@ -804,6 +806,7 @@ void keyboard(unsigned char key, int x, int y) {
     	// Condicao para impedir que o helicoptero se mova no ch?o para "tras"
     	if (helicopterY > 1 && propellersEnable == true){
     		moveLeft();
+    		break;
     	}
     	else
 		{
@@ -819,7 +822,7 @@ void keyboard(unsigned char key, int x, int y) {
  		break;	
  	
 	case 'I':
-		// Condicao para impedir que o helicoptero desligue antes de estar no chão
+		// Condicao para impedir que o helicoptero desligue antes de estar no ch?o
 		if(helicopterY <= 0 && propellersEnable == true){
 		propellersEnable = false;
 	}
