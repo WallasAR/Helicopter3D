@@ -29,6 +29,7 @@ GLfloat helicopterRotation = 0.0;
 GLint rotationAngle = 150;
 GLfloat propellersSpeed = 15.0;
 bool propellersEnable = false;
+GLfloat stopPropellers = 0;
 
 	//animation missile
 GLfloat missilePositionZ = 0.1;
@@ -323,7 +324,9 @@ void propellers(){
 	if (propellersEnable == true){
 		glRotatef(rotationAngle ,0.0, 0.0 , 20.0);
 	}
-	
+	else if (propellersEnable == false){
+		glRotatef(stopPropellers, 0.0, 0.0, 20.0);
+	}
 	glBegin(GL_QUADS);
 	glVertex3fv(helice1[0]);
 	glVertex3fv(helice1[1]);
@@ -418,6 +421,125 @@ void propellers(){
 
   glEnd();
 
+  glPopMatrix();
+  
+  // Propellers 3
+    glPushMatrix();
+
+	GLfloat helice3[][3] = {
+        {-0.1, 0.0, 0.1},
+        {0.5, 0.0, 0.1},
+        {0.5, 0.0, -0.1},
+        {-0.1, 0.0, -0.1},
+
+        {-0.1, 4.0, 0.1},
+        {0.5, 4.0, 0.1},
+        {0.5, 4.0, -0.1},
+        {-0.1, 4.0, -0.1}
+  }; 
+  
+	glTranslatef(0.1, 0.0, -2.0);
+    glRotatef(180, 1.0, 1.0, 0.0); 
+    glScalef(0.5, 0.5, 0.5);
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.8, 0.8, 0.8);
+	
+	if (propellersEnable == true){
+		glRotatef(rotationAngle, 0.0, 0.0, 20.0);
+	}
+		
+  	  glBegin(GL_QUADS);
+  	  glVertex3fv(helice3[0]);
+  	  glVertex3fv(helice3[1]);
+  	  glVertex3fv(helice3[2]);
+  	  glVertex3fv(helice3[3]);
+
+  	  glVertex3fv(helice3[4]);
+  	  glVertex3fv(helice3[5]);
+  	  glVertex3fv(helice3[6]);
+  	  glVertex3fv(helice3[7]);
+
+  	  glVertex3fv(helice3[0]);
+  	  glVertex3fv(helice3[1]);
+  	  glVertex3fv(helice3[5]);
+  	  glVertex3fv(helice3[4]);
+
+  	  glVertex3fv(helice3[1]);
+  	  glVertex3fv(helice3[2]);
+  	  glVertex3fv(helice3[6]);
+  	  glVertex3fv(helice3[5]);
+
+  	  glVertex3fv(helice3[2]);
+  	  glVertex3fv(helice3[3]);
+  	  glVertex3fv(helice3[7]);
+  	  glVertex3fv(helice3[6]);
+
+  	  glVertex3fv(helice3[3]);
+  	  glVertex3fv(helice3[0]);
+  	  glVertex3fv(helice3[4]);
+  	  glVertex3fv(helice3[7]);
+  	  glEnd();
+
+  glPopMatrix();
+  
+  // Propellers 4
+    glPushMatrix();
+
+	GLfloat helice4[][3] = {
+        {-0.1, 0.0, 0.1},
+        {0.5, 0.0, 0.1},
+        {0.5, 0.0, -0.1},
+        {-0.1, 0.0, -0.1},
+
+        {-0.1, 4.0, 0.1},
+        {0.5, 4.0, 0.1},
+        {0.5, 4.0, -0.1},
+        {-0.1, 4.0, -0.1}
+  }; 
+  
+	glTranslatef(0.1, 0.0, -2.0);
+    glRotatef(180, 1.0, -1.0, 0.0); 
+    glScalef(0.5, 0.5, 0.5);
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.8, 0.8, 0.8);
+	
+	if (propellersEnable == true){
+		glRotatef(rotationAngle, 0.0, 0.0, 20.0);
+	}
+		
+  	  glBegin(GL_QUADS);
+  	  glVertex3fv(helice4[0]);
+  	  glVertex3fv(helice4[1]);
+  	  glVertex3fv(helice4[2]);
+  	  glVertex3fv(helice4[3]);
+
+  	  glVertex3fv(helice4[4]);
+  	  glVertex3fv(helice4[5]);
+  	  glVertex3fv(helice4[6]);
+  	  glVertex3fv(helice4[7]);
+
+  	  glVertex3fv(helice4[0]);
+  	  glVertex3fv(helice4[1]);
+  	  glVertex3fv(helice4[5]);
+  	  glVertex3fv(helice4[4]);
+
+  	  glVertex3fv(helice4[1]);
+  	  glVertex3fv(helice4[2]);
+  	  glVertex3fv(helice4[6]);
+  	  glVertex3fv(helice4[5]);
+
+  	  glVertex3fv(helice4[2]);
+  	  glVertex3fv(helice4[3]);
+  	  glVertex3fv(helice4[7]);
+  	  glVertex3fv(helice4[6]);
+
+  	  glVertex3fv(helice4[3]);
+  	  glVertex3fv(helice4[0]);
+  	  glVertex3fv(helice4[4]);
+  	  glVertex3fv(helice4[7]);
+
+  glEnd();
+  
   glPopMatrix();
   
 }
@@ -692,13 +814,18 @@ void keyboard(unsigned char key, int x, int y) {
     	missileLaunched = true;
     	break;
     	
-	case 'q':
+	case 'i':
  		propellersEnable = true;
  		break;	
-
-    glutPostRedisplay();
+ 	
+	case 'I':
+		// Condicao para impedir que o helicoptero desligue antes de estar no chão
+		if(helicopterY <= 0 && propellersEnable == true){
+		propellersEnable = false;
 	}
     
+	}
+    glutPostRedisplay();
 }
 
 // Funcao para configurar texturas e efeitos
