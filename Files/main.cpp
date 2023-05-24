@@ -611,7 +611,7 @@ void propellers(){
 		{-0.1, 4.0, -0.1}
 }; 
     
-    glTranslatef(0.1, 1.0, -2.0);
+    glTranslatef(0.0, 1.0, -1.5);
     glRotatef(180, 1.0, 0.0, 0.0);
     glScalef(0.5, 0.5, 0.5);
 	glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -673,7 +673,7 @@ void propellers(){
         {-0.1, 4.0, -0.1}
   };
 	
-    glTranslatef(0.1, 1.0, -2.0);
+    glTranslatef(0.0, 1.0, -1.5);
     glRotatef(180, 0.0, 1.0, 0.0); 
     glScalef(0.5, 0.5, 0.5);
 	glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -734,7 +734,7 @@ void propellers(){
         {-0.1, 4.0, -0.1}
   }; 
   
-	glTranslatef(0.1, 1.0, -2.0);
+	glTranslatef(0.0, 1.0, -1.5);
     glRotatef(180, 1.0, 1.0, 0.0); 
     glScalef(0.5, 0.5, 0.5);
 	glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -793,7 +793,7 @@ void propellers(){
         {-0.1, 4.0, -0.1}
   }; 
   
-	glTranslatef(0.1, 1.0, -2.0);
+	glTranslatef(0.0, 1.0, -1.5);
     glRotatef(180, 1.0, -1.0, 0.0); 
     glScalef(0.5, 0.5, 0.5);
 	glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -838,6 +838,60 @@ void propellers(){
   
   glPopMatrix();
   
+  // Desenhar acoplamento das helices no corpo do helicoptero
+  // Cilindro maior
+   glPushMatrix();
+
+   GLUquadricObj *quadric = gluNewQuadric();
+   
+  	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.8, 0.0, 0.0);
+    gluQuadricTexture(quadric, GL_TRUE);
+    glTranslatef(0, 1.0, -1.3);
+    glScalef(0.5, 0.5, 0.5);
+    glRotatef(0, 0.0, 1.0, 0.0);
+    gluCylinder(quadric, 0.3, 1.0, 1.0, 100, 150);
+    
+    glPopMatrix();
+	
+	// Cilindro menor
+	glPushMatrix();
+
+  	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.7, 0.0, 0.0);
+    gluQuadricTexture(quadric, GL_TRUE);
+    glTranslatef(0, 1.0, -1.5);
+    glScalef(0.5, 0.5, 0.5);
+    glRotatef(0, 0.0, 1.0, 0.0);
+    gluCylinder(quadric, 0.19, 0.25, 1.5, 100, 150);
+    
+    glPopMatrix();  
+  
+    // cone central que junta as helices
+    glPushMatrix();
+	
+	gluQuadricTexture(quadric, GL_TRUE);
+	glColor3f(0.6, 0.0, 0.0);
+	glRotatef(0,0.0, 1.0, 0.0);
+	glTranslatef(0.0, 1.0, -1.6);
+	glScalef(1.1, 1.1, 0.3);
+	
+	gluCylinder(quadric, 0.1, 0.2, 0.8, 100, 150);
+	
+	glPopMatrix();
+	
+	// esfera para cobrir o cone 
+	glPushMatrix();
+	
+	glColor3f(0.6, 0.0, 0.0); 
+    glTranslatef(0.0, 1.0, -1.55);
+    glRotatef(180, 0, 5, 5);
+    glScalef(0.3, 0.1, 0.3);
+    glDisable(GL_TEXTURE_2D);
+    
+    gluSphere(quadric, 0.5, 100, 150);
+    
+    glPopMatrix();
 }
 
 // Draw Gun
