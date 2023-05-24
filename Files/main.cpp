@@ -27,7 +27,7 @@ GLfloat helicopterZ = 0.0;
 
 	//animation propellers
 GLint rotationAngle = 150;
-GLfloat propellersSpeed = 15.0;
+GLfloat propellersSpeed = 20.0;
 bool propellersEnable = false;
 GLfloat stopPropellers = 0;
 
@@ -490,7 +490,37 @@ void Missiles(){
 	gluQuadricTexture(quadric, GL_TRUE);
 	glColor3f(0.3, 0.3, 0.3);
 	glRotatef(90, 1.0, 0.0, 0.0);
-	glTranslatef(1.5, 0.0, -2.3);
+	glTranslatef(1.3, 0.0, -1.2);
+	
+	if (missileLaunched == true){
+		glTranslatef(0.1, 0.2, -missilePositionZ);
+	}
+	
+	gluCylinder(quadric, 0.001, 0.2, 0.4, 100, 150);
+	
+	glPopMatrix();
+	
+	glPushMatrix();
+	
+	gluQuadricTexture(quadric, GL_TRUE);
+	glColor3f(0.4, 0.4, 0.4);
+	glRotatef(90, 1.0, 0.0, 0.0);
+	glTranslatef(-1.3, 0.0, -0.8);
+	
+	if (missileLaunched == true){
+		glTranslatef(-0.1, 0.2, -missilePositionZ);
+	}
+	
+	gluCylinder(quadric, 0.19, 0.19, 1.0, 100, 150);
+	
+	glPopMatrix();
+	
+	glPushMatrix();
+	
+	gluQuadricTexture(quadric, GL_TRUE);
+	glColor3f(0.3, 0.3, 0.3);
+	glRotatef(90, 1.0, 0.0, 0.0);
+	glTranslatef(-1.3, 0.0, -1.2);
 	
 	if (missileLaunched == true){
 		glTranslatef(-0.1, 0.2, -missilePositionZ);
@@ -505,15 +535,62 @@ void Missiles(){
 	gluQuadricTexture(quadric, GL_TRUE);
 	glColor3f(0.4, 0.4, 0.4);
 	glRotatef(90, 1.0, 0.0, 0.0);
-	glTranslatef(1.5, 0.0, -1.9);
+	glTranslatef(1.3, 0.0, -0.8);
 	
 	if (missileLaunched == true){
-		glTranslatef(-0.1, 0.2, -missilePositionZ);
+		glTranslatef(0.1, 0.2, -missilePositionZ);
 	}
 	
 	gluCylinder(quadric, 0.19, 0.19, 1.0, 100, 150);
 	
 	glPopMatrix();
+		
+	//Draw baseMissile	
+	glPushMatrix();
+    
+  	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.7, 0.0, 0.0);
+    gluQuadricTexture(quadric, GL_TRUE);
+    glTranslatef(0, 0.1, -0.3);
+    glScalef(0.5, 2.5, 0.5);
+    glRotatef(90, 0.0, 1.0, 0.0);
+    gluCylinder(quadric, 0.2, 0.2, 2.4, 100, 150);
+    
+    glPopMatrix();
+    
+ 	glPushMatrix();
+    glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.7, 0.0, 0.0);
+    gluQuadricTexture(quadric, GL_TRUE);
+    glTranslatef(1.3, 0.8, -0.3);
+    glScalef(1.5, 0.5, 0.5);
+    glRotatef(90, 1.0, 0.0, 0.0);
+    gluCylinder(quadric, 0.2, 0.2, 2.4, 100, 150);
+    
+    glPopMatrix();
+    
+    	glPushMatrix();
+    
+  	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.7, 0.0, 0.0);
+    gluQuadricTexture(quadric, GL_TRUE);
+    glTranslatef(-1.0, 0.1, -0.3);
+    glScalef(0.5, 2.5, 0.5);
+    glRotatef(90, 0.0, 1.0, 0.0);
+    gluCylinder(quadric, 0.2, 0.2, 2.4, 100, 150);
+    
+    glPopMatrix();
+    
+ 	glPushMatrix();
+    glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.7, 0.0, 0.0);
+    gluQuadricTexture(quadric, GL_TRUE);
+    glTranslatef(-1.3, 0.8, -0.3);
+    glScalef(1.5, 0.5, 0.5);
+    glRotatef(90, 1.0, 0.0, 0.0);
+    gluCylinder(quadric, 0.2, 0.2, 2.4, 100, 150);
+    
+    glPopMatrix();
 }
 
 // Draw propellers
@@ -1043,11 +1120,12 @@ void keyboard(unsigned char key, int x, int y) {
 	case 'I':
 		// Condicao para impedir que o helicoptero desligue antes de estar no ch?o
 		if(helicopterY <= 0 && propellersEnable == true){
-		propellersEnable = false;
-	}
+			propellersEnable = false;
+			break;
+		}
     
 	}
-    glutPostRedisplay();
+glutPostRedisplay();
 }
 
 // Funcao para configurar texturas e efeitos
