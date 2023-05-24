@@ -23,7 +23,7 @@ GLuint helicopter;
 GLfloat helicopterX = 0.0;
 GLfloat helicopterY = 0.0;
 GLfloat helicopterZ = 0.0;
-GLfloat helicopterRotation = 0.0;
+//GLfloat helicopterRotation = 0.0;
 
 	//animation propellers
 GLint rotationAngle = 150;
@@ -89,12 +89,6 @@ void moveRight() {
 void baseHelicoper(){
 	
 	glPushMatrix();
-    
-    glTranslatef(-0.8, 0.0, 1.5);
-    glRotatef(180, 0.0, 1.0, 0.0);
-    glScalef(0.5, 0.5, 0.5);
-	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glColor3f(0.5, 0.0, 0.0);
 	
 	GLfloat base_rectang1[][3] = {
         {-0.1, 0.0, 0.1},
@@ -107,48 +101,267 @@ void baseHelicoper(){
         {0.5, 4.0, -0.1},
         {-0.1, 4.0, -0.1}
   };
- 
-  	  glBegin(GL_QUADS);
-  	  glVertex3fv(base_rectang1[0]);
-  	  glVertex3fv(base_rectang1[1]);
-  	  glVertex3fv(base_rectang1[2]);
-  	  glVertex3fv(base_rectang1[3]);
-  	  
-  	  glVertex3fv(base_rectang1[4]);
-  	  glVertex3fv(base_rectang1[5]);
-  	  glVertex3fv(base_rectang1[6]);
-  	  glVertex3fv(base_rectang1[7]);
-  	  
-  	  glVertex3fv(base_rectang1[0]);
-  	  glVertex3fv(base_rectang1[1]);
-  	  glVertex3fv(base_rectang1[5]);
-  	  glVertex3fv(base_rectang1[4]);
-  	  
-  	  glVertex3fv(base_rectang1[1]);
-  	  glVertex3fv(base_rectang1[2]);
-  	  glVertex3fv(base_rectang1[6]);
-  	  glVertex3fv(base_rectang1[5]);
-  	  
-  	  glVertex3fv(base_rectang1[2]);
-  	  glVertex3fv(base_rectang1[3]);
-  	  glVertex3fv(base_rectang1[7]);
-  	  glVertex3fv(base_rectang1[6]);
-  	  
-  	  glVertex3fv(base_rectang1[3]);
-  	  glVertex3fv(base_rectang1[0]);
-  	  glVertex3fv(base_rectang1[4]);
-  	  glVertex3fv(base_rectang1[7]);  	  
-  	  glEnd();
-
-	glPopMatrix();
   
-  	glPushMatrix();
-    
-    glTranslatef(1.0, 0.0, 1.5);
+  	glTranslatef(-0.8, 0.0, 1.5);
     glRotatef(180, 0.0, 1.0, 0.0);
     glScalef(0.5, 0.5, 0.5);
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glColor3f(0.5, 0.0, 0.0);
+	   
+  	glBegin(GL_QUADS);
+	glVertex3fv(base_rectang1[0]);
+  	glVertex3fv(base_rectang1[1]);
+  	glVertex3fv(base_rectang1[2]);
+  	glVertex3fv(base_rectang1[3]);
+  	 
+  	glVertex3fv(base_rectang1[4]);
+  	glVertex3fv(base_rectang1[5]);
+  	glVertex3fv(base_rectang1[6]);
+  	glVertex3fv(base_rectang1[7]);
+  	
+  	glVertex3fv(base_rectang1[0]);
+  	glVertex3fv(base_rectang1[1]);
+  	glVertex3fv(base_rectang1[5]);
+  	glVertex3fv(base_rectang1[4]);
+  	 
+  	glVertex3fv(base_rectang1[1]);
+  	glVertex3fv(base_rectang1[2]);
+  	glVertex3fv(base_rectang1[6]);
+  	glVertex3fv(base_rectang1[5]);
+  	 
+  	glVertex3fv(base_rectang1[2]);
+  	glVertex3fv(base_rectang1[3]);
+  	glVertex3fv(base_rectang1[7]);
+  	glVertex3fv(base_rectang1[6]);
+  	  
+  	glVertex3fv(base_rectang1[3]);
+  	glVertex3fv(base_rectang1[0]);
+  	glVertex3fv(base_rectang1[4]);
+  	glVertex3fv(base_rectang1[7]);  	  
+  	glEnd();
+
+	glPopMatrix();
+  	
+  	glPushMatrix();
+	
+	//Detalhes frente 
+	GLfloat base_rectang_detail1[][3] = {
+        {-0.1, 0.0, 0.1},
+        {0.5, 0.0, 0.1},
+        {0.5, 0.0, -0.1},
+        {-0.1, 0.0, -0.1},
+        	
+        {-0.1, 0.8, -0.1},
+        {0.5, 0.8, -0.1},
+        {0.5, 0.8, -0.1},
+        {-0.1, 0.8, -0.1}
+  };
+  
+    glTranslatef(-1.0, 1.97, 1.5);
+    glRotatef(-20, 1.0, 0.0, 0.0);
+    glScalef(0.5, 0.5, 0.5);
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.5, 0.0, 0.0);
+ 
+  	glBegin(GL_QUADS);
+  	glVertex3fv(base_rectang_detail1[0]);
+  	glVertex3fv(base_rectang_detail1[1]);
+  	glVertex3fv(base_rectang_detail1[2]);
+  	glVertex3fv(base_rectang_detail1[3]);
+  	  
+  	glVertex3fv(base_rectang_detail1[4]);
+  	glVertex3fv(base_rectang_detail1[5]);
+  	glVertex3fv(base_rectang_detail1[6]);
+  	glVertex3fv(base_rectang_detail1[7]);
+  	  
+  	glVertex3fv(base_rectang_detail1[0]);
+  	glVertex3fv(base_rectang_detail1[1]);
+  	glVertex3fv(base_rectang_detail1[5]);
+  	glVertex3fv(base_rectang_detail1[4]);
+  	  
+  	glVertex3fv(base_rectang_detail1[1]);
+  	glVertex3fv(base_rectang_detail1[2]);
+  	glVertex3fv(base_rectang_detail1[6]);
+  	glVertex3fv(base_rectang_detail1[5]);
+  	  
+  	glVertex3fv(base_rectang_detail1[2]);
+  	glVertex3fv(base_rectang_detail1[3]);
+  	glVertex3fv(base_rectang_detail1[7]);
+  	glVertex3fv(base_rectang_detail1[6]);
+  	  
+  	glVertex3fv(base_rectang_detail1[3]);
+  	glVertex3fv(base_rectang_detail1[0]);
+  	glVertex3fv(base_rectang_detail1[4]);
+  	glVertex3fv(base_rectang_detail1[7]);  	  
+  	glEnd();
+
+	glPopMatrix();
+  	
+  	glPushMatrix();
+	
+	GLfloat base_rectang_detail2[][3] = {
+        {-0.1, 0.0, 0.1},
+        {0.5, 0.0, 0.1},
+        {0.5, 0.0, -0.1},
+        {-0.1, 0.0, -0.1},
+        	
+        {-0.1, 0.8, -0.1},
+        {0.5, 0.8, -0.1},
+        {0.5, 0.8, -0.1},
+        {-0.1, 0.8, -0.1}
+  };
+  
+    glTranslatef(0.8, 1.97, 1.5);
+    glRotatef(-20, 1.0, 0.0, 0.0);
+    glScalef(0.5, 0.5, 0.5);
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.5, 0.0, 0.0);
+ 
+  	glBegin(GL_QUADS);
+  	glVertex3fv(base_rectang_detail2[0]);
+  	glVertex3fv(base_rectang_detail2[1]);
+  	glVertex3fv(base_rectang_detail2[2]);
+  	glVertex3fv(base_rectang_detail2[3]);
+  	  
+  	glVertex3fv(base_rectang_detail2[4]);
+  	glVertex3fv(base_rectang_detail2[5]);
+  	glVertex3fv(base_rectang_detail2[6]);
+  	glVertex3fv(base_rectang_detail2[7]);
+  	  
+  	glVertex3fv(base_rectang_detail2[0]);
+  	glVertex3fv(base_rectang_detail2[1]);
+  	glVertex3fv(base_rectang_detail2[5]);
+  	glVertex3fv(base_rectang_detail2[4]);
+  	  
+  	glVertex3fv(base_rectang_detail2[1]);
+  	glVertex3fv(base_rectang_detail2[2]);
+  	glVertex3fv(base_rectang_detail2[6]);
+  	glVertex3fv(base_rectang_detail2[5]);
+  	  
+  	glVertex3fv(base_rectang_detail2[2]);
+  	glVertex3fv(base_rectang_detail2[3]);
+  	glVertex3fv(base_rectang_detail2[7]);
+  	glVertex3fv(base_rectang_detail2[6]);
+  	  
+  	glVertex3fv(base_rectang_detail2[3]);
+  	glVertex3fv(base_rectang_detail2[0]);
+  	glVertex3fv(base_rectang_detail2[4]);
+  	glVertex3fv(base_rectang_detail2[7]);  	  
+  	glEnd();
+
+	glPopMatrix();
+  	
+  	glPushMatrix();
+	
+	//Detalhes costas 
+	GLfloat base_rectang_detail3[][3] = {
+		{-0.1, 0.0, -0.1},
+        {0.5, 0.0, -0.1},
+        {0.5, 0.0, -0.1},
+        {-0.1, 0.0, -0.1},
+        	
+        {-0.1, 0.8, -0.1},
+        {0.5, 0.8, -0.1},
+        {0.5, 0.8, 0.1},
+        {-0.1, 0.8, 0.1}		
+  	
+  };
+  
+    glTranslatef(0.8, -0.35, 1.35);
+    glRotatef(20, 1.0, 0.0, 0.0);
+    glScalef(0.5, 0.5, 0.5);
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.5, 0.0, 0.0);
+    
+  	glBegin(GL_QUADS);
+  	glVertex3fv(base_rectang_detail3[0]);
+  	glVertex3fv(base_rectang_detail3[1]);
+  	glVertex3fv(base_rectang_detail3[2]);
+  	glVertex3fv(base_rectang_detail3[3]);
+  	  
+  	glVertex3fv(base_rectang_detail3[4]);
+  	glVertex3fv(base_rectang_detail3[5]);
+  	glVertex3fv(base_rectang_detail3[6]);
+  	glVertex3fv(base_rectang_detail3[7]);
+  	  
+  	glVertex3fv(base_rectang_detail3[0]);
+  	glVertex3fv(base_rectang_detail3[1]);
+  	glVertex3fv(base_rectang_detail3[5]);
+  	glVertex3fv(base_rectang_detail3[4]);
+  	  
+  	glVertex3fv(base_rectang_detail3[1]);
+  	glVertex3fv(base_rectang_detail3[2]);
+  	glVertex3fv(base_rectang_detail3[6]);
+  	glVertex3fv(base_rectang_detail3[5]);
+  	  
+  	glVertex3fv(base_rectang_detail3[2]);
+  	glVertex3fv(base_rectang_detail3[3]);
+  	glVertex3fv(base_rectang_detail3[7]);
+  	glVertex3fv(base_rectang_detail3[6]);
+  	  
+  	glVertex3fv(base_rectang_detail3[3]);
+  	glVertex3fv(base_rectang_detail3[0]);
+  	glVertex3fv(base_rectang_detail3[4]);
+  	glVertex3fv(base_rectang_detail3[7]);  	  
+  	glEnd();
+
+	glPopMatrix();
+  	
+  	glPushMatrix();
+	
+	GLfloat base_rectang_detail4[][3] = {
+        {-0.1, 0.0, -0.1},
+        {0.5, 0.0, -0.1},
+        {0.5, 0.0, -0.1},
+        {-0.1, 0.0, -0.1},
+        	
+        {-0.1, 0.8, -0.1},
+        {0.5, 0.8, -0.1},
+        {0.5, 0.8, 0.1},
+        {-0.1, 0.8, 0.1}
+  };
+  
+    glTranslatef(-1.0, -0.35, 1.35);
+    glRotatef(20, 1.0, 0.0, 0.0);
+    glScalef(0.5, 0.5, 0.5);
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.5, 0.0, 0.0);
+ 
+  	glBegin(GL_QUADS);
+  	glVertex3fv(base_rectang_detail4[0]);
+  	glVertex3fv(base_rectang_detail4[1]);
+  	glVertex3fv(base_rectang_detail4[2]);
+  	glVertex3fv(base_rectang_detail4[3]);
+  	  
+  	glVertex3fv(base_rectang_detail4[4]);
+  	glVertex3fv(base_rectang_detail4[5]);
+  	glVertex3fv(base_rectang_detail4[6]);
+  	glVertex3fv(base_rectang_detail4[7]);
+  	  
+  	glVertex3fv(base_rectang_detail4[0]);
+  	glVertex3fv(base_rectang_detail4[1]);
+  	glVertex3fv(base_rectang_detail4[5]);
+  	glVertex3fv(base_rectang_detail4[4]);
+  	  
+  	glVertex3fv(base_rectang_detail4[1]);
+  	glVertex3fv(base_rectang_detail4[2]);
+  	glVertex3fv(base_rectang_detail4[6]);
+  	glVertex3fv(base_rectang_detail4[5]);
+  	  
+  	glVertex3fv(base_rectang_detail4[2]);
+  	glVertex3fv(base_rectang_detail4[3]);
+  	glVertex3fv(base_rectang_detail4[7]);
+  	glVertex3fv(base_rectang_detail4[6]);
+  	  
+  	glVertex3fv(base_rectang_detail4[3]);
+  	glVertex3fv(base_rectang_detail4[0]);
+  	glVertex3fv(base_rectang_detail4[4]);
+  	glVertex3fv(base_rectang_detail4[7]);  	  
+  	glEnd();
+
+	glPopMatrix();
+  	
+  	glPushMatrix();
 	
 	GLfloat base_rectang2[][3] = {
         {-0.1, 0.0, 0.1},
@@ -161,38 +374,44 @@ void baseHelicoper(){
         {0.5, 4.0, -0.1},
         {-0.1, 4.0, -0.1}
   };
- 
-  	  glBegin(GL_QUADS);
-  	  glVertex3fv(base_rectang2[0]);
-  	  glVertex3fv(base_rectang2[1]);
-  	  glVertex3fv(base_rectang2[2]);
-  	  glVertex3fv(base_rectang2[3]);
+  
+    glTranslatef(1.0, 0.0, 1.5);
+    glRotatef(180, 0.0, 1.0, 0.0);
+    glScalef(0.5, 0.5, 0.5);
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.5, 0.0, 0.0);
+	
+  	glBegin(GL_QUADS);
+  	glVertex3fv(base_rectang2[0]);
+  	glVertex3fv(base_rectang2[1]);
+  	glVertex3fv(base_rectang2[2]);
+  	glVertex3fv(base_rectang2[3]);
   	  
-  	  glVertex3fv(base_rectang2[4]);
-  	  glVertex3fv(base_rectang2[5]);
-  	  glVertex3fv(base_rectang2[6]);
-  	  glVertex3fv(base_rectang2[7]);
+  	glVertex3fv(base_rectang2[4]);
+  	glVertex3fv(base_rectang2[5]);
+  	glVertex3fv(base_rectang2[6]);
+  	glVertex3fv(base_rectang2[7]);
   	  
-  	  glVertex3fv(base_rectang2[0]);
-  	  glVertex3fv(base_rectang2[1]);
-  	  glVertex3fv(base_rectang2[5]);
-  	  glVertex3fv(base_rectang2[4]);
+  	glVertex3fv(base_rectang2[0]);
+  	glVertex3fv(base_rectang2[1]);
+  	glVertex3fv(base_rectang2[5]);
+  	glVertex3fv(base_rectang2[4]);
   	  
-  	  glVertex3fv(base_rectang2[1]);
-  	  glVertex3fv(base_rectang2[2]);
-  	  glVertex3fv(base_rectang2[6]);
-  	  glVertex3fv(base_rectang2[5]);
+  	glVertex3fv(base_rectang2[1]);
+  	glVertex3fv(base_rectang2[2]);
+  	glVertex3fv(base_rectang2[6]);
+  	glVertex3fv(base_rectang2[5]);
   	  
-  	  glVertex3fv(base_rectang2[2]);
-  	  glVertex3fv(base_rectang2[3]);
-  	  glVertex3fv(base_rectang2[7]);
-  	  glVertex3fv(base_rectang2[6]);
+  	glVertex3fv(base_rectang2[2]);
+  	glVertex3fv(base_rectang2[3]);
+  	glVertex3fv(base_rectang2[7]);
+  	glVertex3fv(base_rectang2[6]);
   	  
-  	  glVertex3fv(base_rectang2[3]);
-  	  glVertex3fv(base_rectang2[0]);
-  	  glVertex3fv(base_rectang2[4]);
-  	  glVertex3fv(base_rectang2[7]);
-  	  glEnd();
+  	glVertex3fv(base_rectang2[3]);
+  	glVertex3fv(base_rectang2[0]);
+  	glVertex3fv(base_rectang2[4]);
+  	glVertex3fv(base_rectang2[7]);
+  	glEnd();
 
 	glPopMatrix();
   
@@ -315,7 +534,7 @@ void propellers(){
 		{-0.1, 4.0, -0.1}
 }; 
     
-    glTranslatef(0.1, 0.0, -2.0);
+    glTranslatef(0.1, 1.0, -2.0);
     glRotatef(180, 1.0, 0.0, 0.0);
     glScalef(0.5, 0.5, 0.5);
 	glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -377,7 +596,7 @@ void propellers(){
         {-0.1, 4.0, -0.1}
   };
 	
-    glTranslatef(0.1, 0.0, -2.0);
+    glTranslatef(0.1, 1.0, -2.0);
     glRotatef(180, 0.0, 1.0, 0.0); 
     glScalef(0.5, 0.5, 0.5);
 	glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -438,7 +657,7 @@ void propellers(){
         {-0.1, 4.0, -0.1}
   }; 
   
-	glTranslatef(0.1, 0.0, -2.0);
+	glTranslatef(0.1, 1.0, -2.0);
     glRotatef(180, 1.0, 1.0, 0.0); 
     glScalef(0.5, 0.5, 0.5);
 	glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -497,7 +716,7 @@ void propellers(){
         {-0.1, 4.0, -0.1}
   }; 
   
-	glTranslatef(0.1, 0.0, -2.0);
+	glTranslatef(0.1, 1.0, -2.0);
     glRotatef(180, 1.0, -1.0, 0.0); 
     glScalef(0.5, 0.5, 0.5);
 	glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -583,7 +802,7 @@ void desenhaCauda() {
 	
 	glClearColor(0.0, 0.0, 0.0, 0.0),
     glColor3f(0.5, 1.0, 0.5);
-    glTranslatef(-0.3, -2.8, -0.2);
+    glTranslatef(-0.3, -3.0, -0.2);
     glRotatef(270, 1, 0, 0);
     glColor3f(0.7, 0.0, 0.0);
 	
@@ -718,7 +937,7 @@ void display(void) {
     glEnd();
     
     glTranslatef(helicopterX, helicopterY + 1.7, helicopterZ - 4);
-	glRotatef(helicopterRotation, 0.0, 1.0, 0.0);
+	//glRotatef(helicopterRotation, 0.0, 1.0, 0.0);
 
     glColor4f(0.3, 0.52, 0.18, 1.0);
 	glCallList(helicopter);
@@ -778,7 +997,7 @@ void keyboard(unsigned char key, int x, int y) {
     		break;
     	}
     case 's':
-    	// Condi??o para impedir que o helicoptero atravesse o ch?o
+    	// Condicao para impedir que o helicoptero atravesse o ch?o
     	if (helicopterY > 0 && propellersEnable == true){
 			moveDown();
 			break;
