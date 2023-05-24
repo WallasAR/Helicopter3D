@@ -470,12 +470,16 @@ void baseHelicoper(){
 void desenhaCabine() {
 	glPushMatrix();  // Saves the current model-view matrix
 	
+	GLUquadricObj *quadric = gluNewQuadric();
+	
+	glColor4f(0.3, 0.8, 1, 0.5);
+	
     glTranslatef(0.0, 2.3, -0.2);
     glRotatef(180, 0, 5, 5);
     glScalef(1.2, 1.2, 1.5);
-    GLUquadricObj *quadric = gluNewQuadric();
-    glColor4f(0.3, 0.8, 1, 0.5); 
+     
     glDisable(GL_TEXTURE_2D);
+    
     gluSphere(quadric, 0.5, 100, 150);
     
     glPopMatrix(); // Restores the previous model-view matrix so that, in case of modifications, there is no change of positions in any other function
@@ -895,15 +899,56 @@ void propellers(){
 }
 
 // Draw Gun
-/*void desenhaNariz() {
+void Gun() {
+	glPushMatrix();
+	
     GLUquadricObj *quadric = gluNewQuadric();
+    
     gluQuadricTexture(quadric, GL_TRUE);
-    glPushMatrix();
-    glTranslatef(0.3, 10.0, -1.5);
+    glColor3f(0.9, 0.0, 0.0);
+    
+    glTranslatef(0.0, 2.3, 0.9);
     glRotatef(270, 1, 0, 0);
-    gluCylinder(quadric, 0.5, 0.3, 1.5, 12, 3);
+    
+    gluCylinder(quadric, 0.05, 0.05, 0.7, 12, 3);
+    
     glPopMatrix();
-}*/
+    
+ 	glPushMatrix();
+    
+    gluQuadricTexture(quadric, GL_TRUE);
+    glColor3f(0.8, 0.0, 0.0);
+    
+    glTranslatef(0.0, 2.3, 0.85);
+    glRotatef(270, 1, 0, 0);
+    
+    gluCylinder(quadric, 0.02, 0.02, 0.7, 12, 3);
+    
+    glPopMatrix();
+    
+    //base
+    glPushMatrix();
+    
+    glColor3f(0.5, 0.0, 0.0);
+    
+    glTranslatef(0.0, 2.3, 0.7);
+    glScalef(1.0, 0.2, 0.4);
+
+    glutSolidCube(0.8);
+    
+	glPopMatrix();
+	
+	//ammo
+	glPushMatrix();
+	
+	glColor3f(0.9, 0.9, 0.0);
+	
+	glTranslatef(0.0, 2.5, 0.9);
+	
+	gluSphere(quadric, 0.04, 100, 150);
+	
+	glPopMatrix();
+}
 	
 // Desenhar cilindros de cima
 void desenhaCone() {
@@ -1030,7 +1075,7 @@ void draw() {
     desenhaCabine();
     
     //Callback draw Nariz
-//    desenhaNariz();
+    Gun();
     
     //Callback draw Cone
 	desenhaCone();
