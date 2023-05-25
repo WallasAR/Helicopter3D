@@ -32,9 +32,11 @@ bool propellersEnable = false;
 GLfloat stopPropellers = 0;
 
 	//animation missile
-GLfloat missilePositionZ = 0.1;
-bool missileLaunched = false;
-GLfloat missileSpeed = 0.05;
+GLfloat missilePositionZ1 = 0.1;
+GLfloat missilePositionZ2 = 0.1;
+bool missileLaunched1 = false;
+bool missileLaunched2 = false;
+GLfloat missileSpeed = 0.2;
 
 	//animation Machine gun
 GLfloat ammoPositionZ = 0.9;
@@ -56,8 +58,11 @@ void reshape(int width, int height) {
 
 void update_Missiles(int value) {
     // Atualiza a posicao do missil
-    if(missileLaunched == true){
-     missilePositionZ += missileSpeed;
+    if(missileLaunched1 == true){
+     missilePositionZ1 += missileSpeed;
+	 }
+	 if(missileLaunched2 == true){
+     missilePositionZ2 += missileSpeed;
 	 }
     // Redesenha a cena
     glutPostRedisplay();
@@ -502,8 +507,8 @@ void Missiles(){
 	glRotatef(90, 1.0, 0.0, 0.0);
 	glTranslatef(1.3, 0.0, -1.2);
 	
-	if (missileLaunched == true){
-		glTranslatef(0.1, 0.2, -missilePositionZ);
+	if (missileLaunched1 == true){
+		glTranslatef(0.1, 0.2, -missilePositionZ1);
 	}
 	
 	gluCylinder(quadric, 0.001, 0.2, 0.4, 100, 150);
@@ -517,8 +522,8 @@ void Missiles(){
 	glRotatef(90, 1.0, 0.0, 0.0);
 	glTranslatef(-1.3, 0.0, -0.8);
 	
-	if (missileLaunched == true){
-		glTranslatef(-0.1, 0.2, -missilePositionZ);
+	if (missileLaunched2 == true){
+		glTranslatef(-0.1, 0.2, -missilePositionZ2);
 	}
 	
 	gluCylinder(quadric, 0.19, 0.19, 1.0, 100, 150);
@@ -532,8 +537,8 @@ void Missiles(){
 	glRotatef(90, 1.0, 0.0, 0.0);
 	glTranslatef(-1.3, 0.0, -1.2);
 	
-	if (missileLaunched == true){
-		glTranslatef(-0.1, 0.2, -missilePositionZ);
+	if (missileLaunched2 == true){
+		glTranslatef(-0.1, 0.2, -missilePositionZ2);
 	}
 	
 	gluCylinder(quadric, 0.001, 0.2, 0.4, 100, 150);
@@ -547,8 +552,8 @@ void Missiles(){
 	glRotatef(90, 1.0, 0.0, 0.0);
 	glTranslatef(1.3, 0.0, -0.8);
 	
-	if (missileLaunched == true){
-		glTranslatef(0.1, 0.2, -missilePositionZ);
+	if (missileLaunched1 == true){
+		glTranslatef(0.1, 0.2, -missilePositionZ1);
 	}
 	
 	gluCylinder(quadric, 0.19, 0.19, 1.0, 100, 150);
@@ -1130,12 +1135,13 @@ void display(void) {
 
     glColor4f(0.3, 0.52, 0.18, 1.0);
 	glCallList(helicopter);
-	
+
 	propellers();
-	
+
 	Missiles();	
-	
+
 	Gun();
+	
     glPopMatrix();
     glutSwapBuffers();
     
@@ -1223,7 +1229,11 @@ void keyboard(unsigned char key, int x, int y) {
 		}
     
 	case 'r':
-    	missileLaunched = true;
+    	missileLaunched1 = true;
+    	break;
+    
+    case 'R':
+    	missileLaunched2 = true;
     	break;
     	
     case 'm':
