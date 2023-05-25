@@ -36,6 +36,12 @@ GLfloat missilePositionZ = 0.1;
 bool missileLaunched = false;
 GLfloat missileSpeed = 0.05;
 
+	//animation Machine gun
+GLfloat ammoPositionZ = 0.9;
+GLfloat ammoSpeed = 0.1;
+//GLint numAmmo = 0;
+bool firedAmmo = false;
+
 
 // Function that prevents distortion
 void reshape(int width, int height) {
@@ -929,7 +935,7 @@ void Gun() {
     //base
     glPushMatrix();
     
-    glColor3f(0.5, 0.0, 0.0);
+    glColor3f(0.4, 0.0, 0.0);
     
     glTranslatef(0.0, 2.3, 0.7);
     glScalef(1.0, 0.2, 0.4);
@@ -941,9 +947,19 @@ void Gun() {
 	//ammo
 	glPushMatrix();
 	
-	glColor3f(0.9, 0.9, 0.0);
+	glColor3f(0.3, 0.3, 0.3);
 	
 	glTranslatef(0.0, 2.5, 0.9);
+	
+	if (firedAmmo == true) {
+		glColor3f(0.9, 0.9, 0.0);
+        glTranslatef(0.0, ammoPositionZ, 0.0);
+        ammoPositionZ += 1.5f;  // Ajuste a velocidade de movimento conforme necessário
+        if (ammoPositionZ >= 10.0f) {
+            firedAmmo = false;  // Reinicia o disparo quando a esfera atingir o limite inferior
+            ammoPositionZ = 0.0f;  // Reinicia a posição Z da esfera
+        }
+    }
 	
 	gluSphere(quadric, 0.04, 100, 150);
 	
@@ -1074,9 +1090,6 @@ void draw() {
     //Callback draw Cabine
     desenhaCabine();
     
-    //Callback draw Nariz
-    Gun();
-    
     //Callback draw Cone
 	desenhaCone();
 	
@@ -1122,6 +1135,7 @@ void display(void) {
 	
 	Missiles();	
 	
+	Gun();
     glPopMatrix();
     glutSwapBuffers();
     
@@ -1212,6 +1226,13 @@ void keyboard(unsigned char key, int x, int y) {
     	missileLaunched = true;
     	break;
     	
+    case 'm':
+    	if(firedAmmo == false){
+			firedAmmo = true;
+		}
+		break;
+    
+    
 	case 'i':
  		propellersEnable = true;
  		break;	
