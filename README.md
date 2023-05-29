@@ -1,5 +1,5 @@
 # Helicopter3D
- OpenGL
+ OpenGL Legacy
 
 ### Ideas for future implementations
 - [ ] Lighting
