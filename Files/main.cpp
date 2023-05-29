@@ -1369,6 +1369,17 @@ void viewLook(unsigned char key, int x, int y) {
 			propellersEnable = false;
 			break;
 		}
+		
+		case 45: // Tecla "-"
+        raioxz = raioxz + 1;
+        break;
+    
+    case 61: // Tecla "="
+        raioxz = raioxz - 1;
+        if (raioxz == 0) {
+            raioxz = 1;
+        }
+        break;
     }
     glutPostRedisplay();
 }
@@ -1378,17 +1389,6 @@ void keyboard(int key, int x, int y) {
     switch (key) {
     case 27:
         exit(0);
-        break;
-    
-    case 45: // Tecla "-"
-        raioxz = raioxz + 1;
-        break;
-    
-    case 61: // Tecla "="
-        raioxz = raioxz - 1;
-        if (raioxz == 0) {
-            raioxz = 1;
-        }
         break;
 
 	case GLUT_KEY_UP:
