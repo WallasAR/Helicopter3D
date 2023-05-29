@@ -1319,93 +1319,31 @@ void display(void) {
 }
 
 //Captura de eventos no teclado para movimentacao da camera
-void special(int key, int x, int y) {
+void viewLook(unsigned char key, int x, int y) {
     switch (key) {
-    case GLUT_KEY_UP:
+    case 'w':
     	if(view[1] < 25)
         view[1] = view[1] + 1;
         break;
     
-    case GLUT_KEY_DOWN:
+    case 's':
     	if(view[1] > 1)
         view[1] = view[1] - 1;
         break;
     
-    case GLUT_KEY_LEFT:
+    case 'a':
         tetaxz = tetaxz + 2;
         break;
     
-    case GLUT_KEY_RIGHT:
+    case 'd':
         tetaxz = tetaxz - 2;
         break;
-    }
-    glutPostRedisplay();
-}
-
-//Captura de eventos no tecado para movimentacao do helicoptero
-void keyboard(unsigned char key, int x, int y) {
-    switch (key) {
-    case 27:
-        exit(0);
-        break;
     
-    case 45: // Tecla "-"
-        raioxz = raioxz + 1;
-        break;
-    
-    case 61: // Tecla "="
-        raioxz = raioxz - 1;
-        if (raioxz == 0) {
-            raioxz = 1;
-        }
-        break;
-
-	case 'w':
-		if (propellersEnable == true){
-    		moveUp();
-    		break;
-    	}
-    case 's':
-    	// Condicao para impedir que o helicoptero atravesse o ch?o
-    	if (helicopterY > 0 && propellersEnable == true){
-			moveDown();
-			break;
-    	}
-    	
-    	else
-		{
-			break;
-		}
-    	break;
-    
-    case 'a':
- 	   // Condicao para impedir que o helicoptero se mova no ch?o para "frente"
-    	if (helicopterY > 1 && propellersEnable == true){
-    		moveRight();
-    		break;
-    	}
-    	else
-		{
-			break;
-		}
-    	break;
-    
-    case 'd':
-    	// Condicao para impedir que o helicoptero se mova no ch?o para "tras"
-    	if (helicopterY > 1 && propellersEnable == true){
-    		moveLeft();
-    		break;
-    	}
-    	else
-		{
-			break;
-		}
-    
-	case 'r':
+    case 't':
     	missileLaunched1 = true;
     	break;
     
-    case 'R':
+    case 'T':
     	missileLaunched2 = true;
     	break;
     	
@@ -1429,6 +1367,68 @@ void keyboard(unsigned char key, int x, int y) {
 		// Condicao para impedir que o helicoptero desligue antes de estar no ch?o
 		if(helicopterY <= 0 && propellersEnable == true){
 			propellersEnable = false;
+			break;
+		}
+    }
+    glutPostRedisplay();
+}
+
+//Captura de eventos no tecado para movimentacao do helicoptero
+void keyboard(int key, int x, int y) {
+    switch (key) {
+    case 27:
+        exit(0);
+        break;
+    
+    case 45: // Tecla "-"
+        raioxz = raioxz + 1;
+        break;
+    
+    case 61: // Tecla "="
+        raioxz = raioxz - 1;
+        if (raioxz == 0) {
+            raioxz = 1;
+        }
+        break;
+
+	case GLUT_KEY_UP:
+		if (propellersEnable == true){
+    		moveUp();
+    		break;
+    	}
+    case GLUT_KEY_DOWN:
+    	// Condicao para impedir que o helicoptero atravesse o ch?o
+    	if (helicopterY > 0 && propellersEnable == true){
+			moveDown();
+			break;
+    	}
+    	
+    	else
+		{
+			break;
+		}
+    	break;
+    
+    case GLUT_KEY_RIGHT:
+ 	   // Condicao para impedir que o helicoptero se mova no ch?o para "frente"
+    	if (helicopterY > 1 && propellersEnable == true){
+    		moveLeft();
+    		break;
+    	}
+    	else
+		{
+			break;
+		}
+    	break;
+    
+    case GLUT_KEY_LEFT:
+    	// Condicao para impedir que o helicoptero se mova no ch?o para "tras"
+    	if (helicopterY > 1 && propellersEnable == true){
+    		moveRight();
+    		break;
+    	}
+    	else
+		{
 			break;
 		}
     
@@ -1516,8 +1516,8 @@ int main(int argc, char** argv) {
 	//Callbacks
 	glutReshapeFunc(reshape);
 	glutDisplayFunc(display);
-    glutKeyboardFunc(keyboard);
-    glutSpecialFunc(special);
+    glutSpecialFunc(keyboard);
+    glutKeyboardFunc(viewLook);
     
     init();
     
