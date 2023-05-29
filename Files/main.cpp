@@ -2,9 +2,15 @@
 #include <stdlib.h>
 #include <math.h>
 #include <glut.h>
+#include "image.h"
 
 // Parameters
 #define PI 3.1415
+
+#define COORDINADES_TEXPLAN 1.0
+#define COORD_TEXTURA_AVIAO 1.0
+#define TEXTURA_DO_PLANO "montanhas.rgb"
+#define HELICOPTER_TEXTURE "camuflagem.rgb"
 
 // Variables
 
@@ -31,6 +37,8 @@ GLfloat propellersSpeed = 20.0;
 bool propellersEnable = false;
 GLfloat stopPropellers = 0;
 
+GLint rotationAngle_miniP = 0;
+
 	//animation missile
 GLfloat missilePositionZ1 = 0.1;
 GLfloat missilePositionZ2 = 0.1;
@@ -43,6 +51,25 @@ GLfloat ammoPositionZ = 0.9;
 GLfloat ammoSpeed = 0.1;
 //GLint numAmmo = 0;
 bool firedAmmo = false;
+
+	//Textures
+GLuint textura_plano;
+GLuint textura_aviao;
+GLshort texturas=1;
+
+GLfloat ctp[4][2]={
+  {-COORDINADES_TEXPLAN,-COORDINADES_TEXPLAN},
+  {+COORDINADES_TEXPLAN,-COORDINADES_TEXPLAN},
+  {+COORDINADES_TEXPLAN,+COORDINADES_TEXPLAN},
+  {-COORDINADES_TEXPLAN,+COORDINADES_TEXPLAN}
+};
+
+GLfloat cta[4][2]={
+  {-COORD_TEXTURA_AVIAO,-COORD_TEXTURA_AVIAO},
+  {+COORD_TEXTURA_AVIAO,-COORD_TEXTURA_AVIAO},
+  {+COORD_TEXTURA_AVIAO,+COORD_TEXTURA_AVIAO},
+  {-COORD_TEXTURA_AVIAO,+COORD_TEXTURA_AVIAO}
+};
 
 
 // Function that prevents distortion
@@ -72,8 +99,12 @@ void update_Missiles(int value) {
 }
 
 void update_Propellers(int value){
+	
 	rotationAngle += propellersSpeed;
 	
+	  if(propellersEnable == true){
+        rotationAngle_miniP += 18.0f;
+      }
 	glutPostRedisplay();
 	
 	glutTimerFunc(16, update_Propellers, 0);
@@ -113,11 +144,14 @@ void baseHelicoper(){
         {-0.1, 4.0, -0.1}
   };
   
+    glDisable(GL_TEXTURE_2D);
+    
   	glTranslatef(-0.8, 0.0, 1.5);
     glRotatef(180, 0.0, 1.0, 0.0);
     glScalef(0.5, 0.5, 0.5);
+    
 	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glColor3f(0.5, 0.0, 0.0);
+	glColor3f(0.2, 0.2, 0.2);
 	   
   	glBegin(GL_QUADS);
 	glVertex3fv(base_rectang1[0]);
@@ -168,11 +202,14 @@ void baseHelicoper(){
         {-0.1, 0.8, -0.1}
   };
   
+    glDisable(GL_TEXTURE_2D);
+    
     glTranslatef(-1.0, 1.97, 1.5);
     glRotatef(-20, 1.0, 0.0, 0.0);
     glScalef(0.5, 0.5, 0.5);
+    
 	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glColor3f(0.5, 0.0, 0.0);
+	glColor3f(0.2, 0.2, 0.2);
  
   	glBegin(GL_QUADS);
   	glVertex3fv(base_rectang_detail1[0]);
@@ -222,11 +259,14 @@ void baseHelicoper(){
         {-0.1, 0.8, -0.1}
   };
   
+    glDisable(GL_TEXTURE_2D);
+    
     glTranslatef(0.8, 1.97, 1.5);
     glRotatef(-20, 1.0, 0.0, 0.0);
     glScalef(0.5, 0.5, 0.5);
+    
 	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glColor3f(0.5, 0.0, 0.0);
+	glColor3f(0.2, 0.2, 0.2);
  
   	glBegin(GL_QUADS);
   	glVertex3fv(base_rectang_detail2[0]);
@@ -278,11 +318,14 @@ void baseHelicoper(){
   	
   };
   
+    glDisable(GL_TEXTURE_2D);
+    
     glTranslatef(0.8, -0.35, 1.35);
     glRotatef(20, 1.0, 0.0, 0.0);
     glScalef(0.5, 0.5, 0.5);
+    
 	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glColor3f(0.5, 0.0, 0.0);
+	glColor3f(0.2, 0.2, 0.2);
     
   	glBegin(GL_QUADS);
   	glVertex3fv(base_rectang_detail3[0]);
@@ -332,11 +375,14 @@ void baseHelicoper(){
         {-0.1, 0.8, 0.1}
   };
   
+    glDisable(GL_TEXTURE_2D);
+  
     glTranslatef(-1.0, -0.35, 1.35);
     glRotatef(20, 1.0, 0.0, 0.0);
     glScalef(0.5, 0.5, 0.5);
+    
 	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glColor3f(0.5, 0.0, 0.0);
+	glColor3f(0.2, 0.2, 0.2);
  
   	glBegin(GL_QUADS);
   	glVertex3fv(base_rectang_detail4[0]);
@@ -373,7 +419,7 @@ void baseHelicoper(){
 	glPopMatrix();
   	
   	glPushMatrix();
-	
+	  
 	GLfloat base_rectang2[][3] = {
         {-0.1, 0.0, 0.1},
         {0.5, 0.0, 0.1},
@@ -386,11 +432,14 @@ void baseHelicoper(){
         {-0.1, 4.0, -0.1}
   };
   
+    glDisable(GL_TEXTURE_2D);
+    
     glTranslatef(1.0, 0.0, 1.5);
     glRotatef(180, 0.0, 1.0, 0.0);
     glScalef(0.5, 0.5, 0.5);
+    
 	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glColor3f(0.5, 0.0, 0.0);
+	glColor3f(0.2, 0.2, 0.2);
 	
   	glBegin(GL_QUADS);
   	glVertex3fv(base_rectang2[0]);
@@ -425,52 +474,65 @@ void baseHelicoper(){
   	glEnd();
 
 	glPopMatrix();
-  
+  	
+  	// Cilindros
     glPushMatrix();
     
-  	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glColor3f(0.8, 0.0, 0.0);
     GLUquadricObj *quadric = gluNewQuadric();
     gluQuadricTexture(quadric, GL_TRUE);
+    
+    glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.25, 0.25, 0.25);
+    
     glTranslatef(0, 0.1, 0.8);
     glScalef(0.5, 0.5, 0.5);
     glRotatef(55, 0.0, 1.0, 0.0);
+    
     gluCylinder(quadric, 0.2, 0.2, 2.4, 100, 150);
     
     glPopMatrix();    
     
 	glPushMatrix();
     
-  	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glColor3f(0.8, 0.0, 0.0);
     gluQuadricTexture(quadric, GL_TRUE);
+    
+  	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.25, 0.25, 0.25);
+    
     glTranslatef(0, 0.1, 0.8);
     glScalef(0.5, 0.5, 0.5);
     glRotatef(-55, 0.0, 1.0, 0.0);
+    
     gluCylinder(quadric, 0.2, 0.2, 2.4, 100, 150);
     
     glPopMatrix();   
     
 	glPushMatrix();
     
-  	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glColor3f(0.8, 0.0, 0.0);
     gluQuadricTexture(quadric, GL_TRUE);
+    
+  	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.25, 0.25, 0.25);
+	
     glTranslatef(0, 1.9, 0.8);
     glScalef(0.5, 0.5, 0.5);
     glRotatef(55, 0.0, 1.0, 0.0);
+    
     gluCylinder(quadric, 0.2, 0.2, 2.4, 100, 150);
     
     glPopMatrix();    
     
 	glPushMatrix();
     
-  	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glColor3f(0.8, 0.0, 0.0);
     gluQuadricTexture(quadric, GL_TRUE);
+    
+  	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glColor3f(0.25, 0.25, 0.25);
+	
     glTranslatef(0, 1.9, 0.8);
     glScalef(0.5, 0.5, 0.5);
     glRotatef(-55, 0.0, 1.0, 0.0);
+    
     gluCylinder(quadric, 0.2, 0.2, 2.4, 100, 150);
     
     glPopMatrix();  
@@ -481,6 +543,7 @@ void baseHelicoper(){
 void desenhaCabine() {
 	glPushMatrix();  // Saves the current model-view matrix
 	
+	glDisable(GL_TEXTURE_2D);
 	GLUquadricObj *quadric = gluNewQuadric();
 	
 	glColor4f(0.3, 0.8, 1, 0.5);
@@ -488,8 +551,23 @@ void desenhaCabine() {
     glTranslatef(0.0, 2.3, -0.2);
     glRotatef(180, 0, 5, 5);
     glScalef(1.2, 1.2, 1.5);
-     
-    glDisable(GL_TEXTURE_2D);
+    
+    gluSphere(quadric, 0.5, 100, 150);
+    
+    glPopMatrix(); // Restores the previous model-view matrix so that, in case of modifications, there is no change of positions in any other function
+}
+
+void internCabine() {
+	glPushMatrix();  // Saves the current model-view matrix
+	
+	glDisable(GL_TEXTURE_2D);
+	GLUquadricObj *quadric = gluNewQuadric();
+	
+	glColor3f(0.1, 0.1, 0.1);
+	
+    glTranslatef(0.0, 2.2, -0.055);
+    glRotatef(180, 0, 5, 5);
+    glScalef(1.3, 1.45, 1.6);
     
     gluSphere(quadric, 0.5, 100, 150);
     
@@ -498,11 +576,14 @@ void desenhaCabine() {
 
 //Desenhar misseis
 void Missiles(){
+	
 	glPushMatrix();
 	
 	GLUquadricObj *quadric = gluNewQuadric();
 	
+	glDisable(GL_TEXTURE_2D);
 	gluQuadricTexture(quadric, GL_TRUE);
+	
 	glColor3f(0.3, 0.3, 0.3);
 	glRotatef(90, 1.0, 0.0, 0.0);
 	glTranslatef(1.3, 0.0, -1.2);
@@ -517,7 +598,9 @@ void Missiles(){
 	
 	glPushMatrix();
 	
+	glDisable(GL_TEXTURE_2D);
 	gluQuadricTexture(quadric, GL_TRUE);
+	
 	glColor3f(0.4, 0.4, 0.4);
 	glRotatef(90, 1.0, 0.0, 0.0);
 	glTranslatef(-1.3, 0.0, -0.8);
@@ -532,7 +615,9 @@ void Missiles(){
 	
 	glPushMatrix();
 	
+	glDisable(GL_TEXTURE_2D);
 	gluQuadricTexture(quadric, GL_TRUE);
+	
 	glColor3f(0.3, 0.3, 0.3);
 	glRotatef(90, 1.0, 0.0, 0.0);
 	glTranslatef(-1.3, 0.0, -1.2);
@@ -547,7 +632,9 @@ void Missiles(){
 	
 	glPushMatrix();
 	
+	glDisable(GL_TEXTURE_2D);
 	gluQuadricTexture(quadric, GL_TRUE);
+	
 	glColor3f(0.4, 0.4, 0.4);
 	glRotatef(90, 1.0, 0.0, 0.0);
 	glTranslatef(1.3, 0.0, -0.8);
@@ -562,6 +649,8 @@ void Missiles(){
 		
 	//Draw baseMissile	
 	glPushMatrix();
+    
+    glEnable(GL_TEXTURE_2D);
     
   	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glColor3f(0.7, 0.0, 0.0);
@@ -625,12 +714,13 @@ void propellers(){
 		{0.5, 4.0, -0.1},
 		{-0.1, 4.0, -0.1}
 }; 
+    glDisable(GL_TEXTURE_2D);
     
     glTranslatef(0.0, 1.0, -1.5);
     glRotatef(180, 1.0, 0.0, 0.0);
     glScalef(0.5, 0.5, 0.5);
+    
 	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glColor3f(0.8, 0.8, 0.8);
 	
 	if (propellersEnable == true){
 		glRotatef(rotationAngle ,0.0, 0.0 , 20.0);
@@ -639,31 +729,37 @@ void propellers(){
 		glRotatef(stopPropellers, 0.0, 0.0, 20.0);
 	}
 	glBegin(GL_QUADS);
+	glColor3f(0.75, 0.75, 0.75);
 	glVertex3fv(helice1[0]);
 	glVertex3fv(helice1[1]);
 	glVertex3fv(helice1[2]);
     glVertex3fv(helice1[3]);
     
+    glColor3f(0.6, 0.6, 0.6);
 	glVertex3fv(helice1[4]);
 	glVertex3fv(helice1[5]);
     glVertex3fv(helice1[6]);
 	glVertex3fv(helice1[7]);
 	
+	glColor3f(0.75, 0.75, 0.75);
 	glVertex3fv(helice1[0]);
 	glVertex3fv(helice1[1]);
 	glVertex3fv(helice1[5]);
 	glVertex3fv(helice1[4]);
 	
+	glColor3f(0.6, 0.6, 0.6);
 	glVertex3fv(helice1[1]);
 	glVertex3fv(helice1[2]);
 	glVertex3fv(helice1[6]);
 	glVertex3fv(helice1[5]);
 	
+	glColor3f(0.75, 0.75, 0.75);
 	glVertex3fv(helice1[2]);
 	glVertex3fv(helice1[3]);
 	glVertex3fv(helice1[7]);
 	glVertex3fv(helice1[6]);
 	
+	glColor3f(0.6, 0.6, 0.6);
 	glVertex3fv(helice1[3]);
 	glVertex3fv(helice1[0]);
 	glVertex3fv(helice1[4]);
@@ -688,9 +784,12 @@ void propellers(){
         {-0.1, 4.0, -0.1}
   };
 	
+	glDisable(GL_TEXTURE_2D);
+	
     glTranslatef(0.0, 1.0, -1.5);
     glRotatef(180, 0.0, 1.0, 0.0); 
     glScalef(0.5, 0.5, 0.5);
+    
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glColor3f(0.8, 0.8, 0.8);
 
@@ -700,31 +799,37 @@ void propellers(){
 	
 	 
   	  glBegin(GL_QUADS);
+  	  glColor3f(0.75, 0.75, 0.75);
   	  glVertex3fv(helice2[0]);
   	  glVertex3fv(helice2[1]);
   	  glVertex3fv(helice2[2]);
   	  glVertex3fv(helice2[3]);
-
+  	  
+  	  glColor3f(0.6, 0.6, 0.6);
   	  glVertex3fv(helice2[4]);
   	  glVertex3fv(helice2[5]);
   	  glVertex3fv(helice2[6]);
   	  glVertex3fv(helice2[7]);
 
+	  glColor3f(0.75, 0.75, 0.75);
   	  glVertex3fv(helice2[0]);
   	  glVertex3fv(helice2[1]);
   	  glVertex3fv(helice2[5]);
   	  glVertex3fv(helice2[4]);
-
+  	  
+  	  glColor3f(0.6, 0.6, 0.6);
   	  glVertex3fv(helice2[1]);
   	  glVertex3fv(helice2[2]);
   	  glVertex3fv(helice2[6]);
   	  glVertex3fv(helice2[5]);
 
+	  glColor3f(0.75, 0.75, 0.75);
   	  glVertex3fv(helice2[2]);
   	  glVertex3fv(helice2[3]);
   	  glVertex3fv(helice2[7]);
   	  glVertex3fv(helice2[6]);
-
+  	  
+  	  glColor3f(0.6, 0.6, 0.6);
   	  glVertex3fv(helice2[3]);
   	  glVertex3fv(helice2[0]);
   	  glVertex3fv(helice2[4]);
@@ -749,9 +854,12 @@ void propellers(){
         {-0.1, 4.0, -0.1}
   }; 
   
+    glDisable(GL_TEXTURE_2D);
+    
 	glTranslatef(0.0, 1.0, -1.5);
     glRotatef(180, 1.0, 1.0, 0.0); 
     glScalef(0.5, 0.5, 0.5);
+    
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glColor3f(0.8, 0.8, 0.8);
 	
@@ -760,31 +868,37 @@ void propellers(){
 	}
 		
   	  glBegin(GL_QUADS);
+  	  glColor3f(0.75, 0.75, 0.75);
   	  glVertex3fv(helice3[0]);
   	  glVertex3fv(helice3[1]);
   	  glVertex3fv(helice3[2]);
   	  glVertex3fv(helice3[3]);
-
+  	  
+  	  glColor3f(0.6, 0.6, 0.6);
   	  glVertex3fv(helice3[4]);
   	  glVertex3fv(helice3[5]);
   	  glVertex3fv(helice3[6]);
   	  glVertex3fv(helice3[7]);
 
+	  glColor3f(0.75, 0.75, 0.75);
   	  glVertex3fv(helice3[0]);
   	  glVertex3fv(helice3[1]);
   	  glVertex3fv(helice3[5]);
   	  glVertex3fv(helice3[4]);
-
+  	  
+  	  glColor3f(0.6, 0.6, 0.6);
   	  glVertex3fv(helice3[1]);
   	  glVertex3fv(helice3[2]);
   	  glVertex3fv(helice3[6]);
   	  glVertex3fv(helice3[5]);
 
+	  glColor3f(0.75, 0.75, 0.75);
   	  glVertex3fv(helice3[2]);
   	  glVertex3fv(helice3[3]);
   	  glVertex3fv(helice3[7]);
   	  glVertex3fv(helice3[6]);
-
+  	  
+  	  glColor3f(0.6, 0.6, 0.6);
   	  glVertex3fv(helice3[3]);
   	  glVertex3fv(helice3[0]);
   	  glVertex3fv(helice3[4]);
@@ -808,9 +922,12 @@ void propellers(){
         {-0.1, 4.0, -0.1}
   }; 
   
+    glDisable(GL_TEXTURE_2D);
+  
 	glTranslatef(0.0, 1.0, -1.5);
     glRotatef(180, 1.0, -1.0, 0.0); 
     glScalef(0.5, 0.5, 0.5);
+    
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glColor3f(0.8, 0.8, 0.8);
 	
@@ -819,31 +936,37 @@ void propellers(){
 	}
 		
   	  glBegin(GL_QUADS);
+  	  glColor3f(0.75, 0.75, 0.75);
   	  glVertex3fv(helice4[0]);
   	  glVertex3fv(helice4[1]);
   	  glVertex3fv(helice4[2]);
   	  glVertex3fv(helice4[3]);
-
+  	  
+  	  glColor3f(0.6, 0.6, 0.6);
   	  glVertex3fv(helice4[4]);
   	  glVertex3fv(helice4[5]);
   	  glVertex3fv(helice4[6]);
   	  glVertex3fv(helice4[7]);
 
+	  glColor3f(0.75, 0.75, 0.75);
   	  glVertex3fv(helice4[0]);
   	  glVertex3fv(helice4[1]);
   	  glVertex3fv(helice4[5]);
   	  glVertex3fv(helice4[4]);
-
+  	  
+  	  glColor3f(0.6, 0.6, 0.6);
   	  glVertex3fv(helice4[1]);
   	  glVertex3fv(helice4[2]);
   	  glVertex3fv(helice4[6]);
   	  glVertex3fv(helice4[5]);
 
+	  glColor3f(0.75, 0.75, 0.75);
   	  glVertex3fv(helice4[2]);
   	  glVertex3fv(helice4[3]);
   	  glVertex3fv(helice4[7]);
   	  glVertex3fv(helice4[6]);
-
+  	  
+  	  glColor3f(0.6, 0.6, 0.6);
   	  glVertex3fv(helice4[3]);
   	  glVertex3fv(helice4[0]);
   	  glVertex3fv(helice4[4]);
@@ -855,16 +978,19 @@ void propellers(){
   
   // Desenhar acoplamento das helices no corpo do helicoptero
   // Cilindro maior
-   glPushMatrix();
+    glPushMatrix();
 
-   GLUquadricObj *quadric = gluNewQuadric();
+    GLUquadricObj *quadric = gluNewQuadric();
+    gluQuadricTexture(quadric, GL_TRUE);
+    glEnable(GL_TEXTURE_2D);
    
   	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glColor3f(0.8, 0.0, 0.0);
-    gluQuadricTexture(quadric, GL_TRUE);
+	glColor3f(0.2, 0.2, 0.2);
+
     glTranslatef(0, 1.0, -1.3);
     glScalef(0.5, 0.5, 0.5);
     glRotatef(0, 0.0, 1.0, 0.0);
+    
     gluCylinder(quadric, 0.3, 1.0, 1.0, 100, 150);
     
     glPopMatrix();
@@ -872,12 +998,15 @@ void propellers(){
 	// Cilindro menor
 	glPushMatrix();
 
-  	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glColor3f(0.7, 0.0, 0.0);
-    gluQuadricTexture(quadric, GL_TRUE);
+	gluQuadricTexture(quadric, GL_TRUE);
+    glDisable(GL_TEXTURE_2D);
+    
+	glColor3f(0.3, 0.3, 0.3);
+	
     glTranslatef(0, 1.0, -1.5);
     glScalef(0.5, 0.5, 0.5);
     glRotatef(0, 0.0, 1.0, 0.0);
+    
     gluCylinder(quadric, 0.19, 0.25, 1.5, 100, 150);
     
     glPopMatrix();  
@@ -886,7 +1015,10 @@ void propellers(){
     glPushMatrix();
 	
 	gluQuadricTexture(quadric, GL_TRUE);
-	glColor3f(0.6, 0.0, 0.0);
+    glDisable(GL_TEXTURE_2D);
+    
+	glColor3f(0.4, 0.4, 0.4);
+	
 	glRotatef(0,0.0, 1.0, 0.0);
 	glTranslatef(0.0, 1.0, -1.6);
 	glScalef(1.1, 1.1, 0.3);
@@ -898,14 +1030,40 @@ void propellers(){
 	// esfera para cobrir o cone 
 	glPushMatrix();
 	
-	glColor3f(0.6, 0.0, 0.0); 
+	glColor3f(0.4, 0.4, 0.4); 
+	
     glTranslatef(0.0, 1.0, -1.55);
     glRotatef(180, 0, 5, 5);
     glScalef(0.3, 0.1, 0.3);
-    glDisable(GL_TEXTURE_2D);
     
     gluSphere(quadric, 0.5, 100, 150);
     
+    glPopMatrix();
+}
+
+void miniPropellers() {
+    // Paleta 1
+    glPushMatrix();
+    
+    glColor3f(0.5, 0.5, 0.5);
+    
+    glTranslatef(0.2, -3.8, -0.7);
+    glRotatef(rotationAngle_miniP, 1, 0, 0);
+    glScalef(0.07, 0.12, 0.7);
+    
+    glutSolidCube(1.0);
+    glPopMatrix();
+
+    // Paleta 2
+    
+    glColor3f(0.5, 0.5, 0.5);
+    
+    glPushMatrix();
+    glTranslatef(0.20, -3.8, -0.7);
+    glRotatef(rotationAngle_miniP, 1, 0, 0);
+    glScalef(0.07, 0.7, 0.12);
+
+    glutSolidCube(1.0);
     glPopMatrix();
 }
 
@@ -952,6 +1110,8 @@ void Gun() {
 	//ammo
 	glPushMatrix();
 	
+	glDisable(GL_TEXTURE_2D);
+	
 	glColor3f(0.3, 0.3, 0.3);
 	
 	glTranslatef(0.0, 2.5, 0.9);
@@ -959,10 +1119,10 @@ void Gun() {
 	if (firedAmmo == true) {
 		glColor3f(0.9, 0.9, 0.0);
         glTranslatef(0.0, ammoPositionZ, 0.0);
-        ammoPositionZ += 1.5f;  // Ajuste a velocidade de movimento conforme necessário
+        ammoPositionZ += 1.5f;  
         if (ammoPositionZ >= 10.0f) {
-            firedAmmo = false;  // Reinicia o disparo quando a esfera atingir o limite inferior
-            ammoPositionZ = 0.0f;  // Reinicia a posição Z da esfera
+            firedAmmo = false;  
+            ammoPositionZ = 0.0f; 
         }
     }
 	
@@ -974,7 +1134,9 @@ void Gun() {
 // Desenhar cilindros de cima
 void desenhaCone() {
 	glPushMatrix();
-	 
+	
+	glEnable(GL_TEXTURE_2D);
+	
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glColor3f(0.8, 0.0, 0.0);
     GLUquadricObj *quadric = gluNewQuadric();
@@ -1050,19 +1212,20 @@ void desenhaCauda() {
     glPopMatrix(); 
 }
 
-
 //Circle Body
 void Circlebody(){
 	glPushMatrix();
 	
 	GLUquadricObj *quadric = gluNewQuadric();
     gluQuadricTexture(quadric, GL_TRUE);
+    
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glColor3f(0.8, 0.0, 0.0);
+    
     glTranslatef(0.0, 1, 0);
     glRotatef(270, 1.0, 0.0, 0.0);
     glScalef(1.0, 1.0, 2.0);
-    glDisable(GL_TEXTURE_2D);
+    
     gluSphere(quadric, 1, 150, 150);
     
     glPopMatrix();
@@ -1091,7 +1254,7 @@ void draw() {
 
 	//Callback draw Body
 	Circlebody();
-	
+	internCabine();
     //Callback draw Cabine
     desenhaCabine();
     
@@ -1103,7 +1266,7 @@ void draw() {
 	
 	//Callback draw Base
 	baseHelicoper();	
-	
+
     glEndList();
 }
 
@@ -1120,28 +1283,36 @@ void display(void) {
     view[0] = raioxz * cos(2 * PI * tetaxz / 360);
     view[2] = raioxz * sin(2 * PI * tetaxz / 360);
     gluLookAt(view[0], view[1], view[2], look[0], look[1], look[2], 0.0, 1.0, 0.0);
-
+	
+	// habilita uso de texturas
+    glEnable(GL_TEXTURE_2D);  
+	
     glColor4f(0.52, 0.52, 0.78, 1.0);
-
+	glTexEnvf(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_DECAL);
+    glBindTexture(GL_TEXTURE_2D,textura_plano);
+	
     glBegin(GL_QUADS);
-    glVertex3f(-10, 0, 10);
-    glVertex3f(10, 0, 10);
-    glVertex3f(10, 0, -10);
-    glVertex3f(-10, 0, -10);
+    glTexCoord2fv(ctp[0]);  glVertex3f(-10,0,10);
+    glTexCoord2fv(ctp[1]);  glVertex3f(10,0,10);
+    glTexCoord2fv(ctp[2]);  glVertex3f(10,0,-10);
+    glTexCoord2fv(ctp[3]);  glVertex3f(-10,0,-10);
     glEnd();
     
     glTranslatef(helicopterX, helicopterY + 1.7, helicopterZ - 4);
 	//glRotatef(helicopterRotation, 0.0, 1.0, 0.0);
 
     glColor4f(0.3, 0.52, 0.18, 1.0);
+    glBindTexture(GL_TEXTURE_2D,textura_aviao);
 	glCallList(helicopter);
 
 	propellers();
-
+	
+	miniPropellers();
+	
 	Missiles();	
 
 	Gun();
-	
+
     glPopMatrix();
     glutSwapBuffers();
     
@@ -1151,10 +1322,12 @@ void display(void) {
 void special(int key, int x, int y) {
     switch (key) {
     case GLUT_KEY_UP:
+    	if(view[1] < 25)
         view[1] = view[1] + 1;
         break;
     
     case GLUT_KEY_DOWN:
+    	if(view[1] > 1)
         view[1] = view[1] - 1;
         break;
     
@@ -1242,7 +1415,12 @@ void keyboard(unsigned char key, int x, int y) {
 		}
 		break;
     
-    
+	case 'M':
+    	if(firedAmmo == false){
+			firedAmmo = true;
+		}
+		break;
+	
 	case 'i':
  		propellersEnable = true;
  		break;	
@@ -1258,12 +1436,70 @@ void keyboard(unsigned char key, int x, int y) {
 glutPostRedisplay();
 }
 
+void load_Textures(void){
+  IMAGE *img;
+  GLenum gluerr;
+
+  /* textura do plano */
+  glGenTextures(1, &textura_plano);
+  glBindTexture(GL_TEXTURE_2D, textura_plano);
+  
+  if(!(img=ImageLoad((char*)TEXTURA_DO_PLANO))) {
+    fprintf(stderr,"Error reading a texture.\n");
+    exit(-1);
+  }
+  
+  gluerr=gluBuild2DMipmaps(GL_TEXTURE_2D, 3, 
+			   img->sizeX, img->sizeY, 
+			   GL_RGB, GL_UNSIGNED_BYTE, 
+			   (GLvoid *)(img->data));
+  if(gluerr){
+    fprintf(stderr,"GLULib%s\n",gluErrorString(gluerr));
+    exit(-1);
+  }
+
+  glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
+  glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+  glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_LINEAR);
+  glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+  glTexEnvf(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_DECAL);
+
+  /* textura do aviao */
+  glGenTextures(1, &textura_aviao);
+  glBindTexture(GL_TEXTURE_2D, textura_aviao);
+
+  
+  if(!(img=ImageLoad((char*)HELICOPTER_TEXTURE))) {
+    fprintf(stderr,"Error reading a texture.\n");
+    exit(-1);
+  }
+
+  gluerr=gluBuild2DMipmaps(GL_TEXTURE_2D, 3, 
+			   img->sizeX, img->sizeY, 
+			   GL_RGB, GL_UNSIGNED_BYTE, 
+			   (GLvoid *)(img->data));
+  if(gluerr){
+    fprintf(stderr,"GLULib%s\n",gluErrorString(gluerr));
+    exit(-1);
+  }
+
+  glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
+  glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+  glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_LINEAR);
+  glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+  glTexEnvf(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_DECAL);
+  
+}
+
 // Funcao para configurar texturas e efeitos
 void init() {
+	load_Textures();
 	draw();
+	glShadeModel(GL_SMOOTH);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_TEXTURE_2D);
 }
 // Main
 int main(int argc, char** argv) {
@@ -1271,11 +1507,13 @@ int main(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
 
+	// Detecção de criação da janela
     if (!glutCreateWindow("3DHelicopter")) {
         fprintf(stderr, "Error opening a window.\n");
         exit(-1);
     }
-
+    
+	//Callbacks
 	glutReshapeFunc(reshape);
 	glutDisplayFunc(display);
     glutKeyboardFunc(keyboard);
@@ -1284,7 +1522,6 @@ int main(int argc, char** argv) {
     init();
     
     glutTimerFunc(0, update_Missiles, 0); // Inicia a atualiza??o da anima??o dos misseis
-    
     
     glutTimerFunc(0, update_Propellers, 0); // Inicia a atualiza??o da anima??o das helices
     

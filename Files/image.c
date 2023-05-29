@@ -137,7 +137,7 @@ static void ImageGetRow( Image *image, unsigned char *buf, int y, int z){
   }
 }
 
-static void ImageGetRawData( Image *image, char *data)
+static void ImageGetRawData( Image *image, unsigned char *data)
 {
   int i, j, k;
   int remain;
