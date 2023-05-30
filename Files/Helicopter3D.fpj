@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project>
-	<Libs Value="-mwindows -lOpenGL32 -lopengl32 -lglut32 -lglu32"/>
+	<Libs Value="-mwindows -lOpenGL32 -lSOIL -lopengl32 -lglut32 -lglu32"/>
 	<Flags Value=""/>
 	<Target Value="Helicopter3D.exe"/>
 	<CommandLine Value=""/>
@@ -15,8 +15,6 @@
 	<AppType Value="GUI"/>
 	<Files>
 		<File Name="main.cpp"/>
-		<File Name="image.c"/>
-		<File Name="image.h"/>
 	</Files>
 	<AppIcon>
 		0000010002002020100001000400E80200002600000010101000010004002801

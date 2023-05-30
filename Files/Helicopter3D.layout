@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout>
 	<Files>
-		<File Name="main.cpp" Top="Yes" Tabpos="1" TopLine="313">
-			<Cursor Line="329" Column="32"/>
-		</File>
-		<File Name="image.h" Top="No" Tabpos="2" TopLine="1">
-			<Cursor Line="7" Column="13"/>
-		</File>
-		<File Name="image.c" Top="No" Tabpos="3" TopLine="29">
-			<Cursor Line="191" Column="1"/>
+		<File Name="main.cpp" Top="Yes" Tabpos="1" TopLine="168">
+			<Cursor Line="135" Column="60"/>
 		</File>
 	</Files>
 </Layout>
