@@ -3,7 +3,7 @@
 
 ### Ideas for future implementations
 - [ ] Lighting
-- [ ] Fire when firing the missile
+- [x] Fire when firing the missile
 - [ ] Ammo available on the ground that refills the helicopter by pressing a key (Note: helicopter must obviously be on the ground)
 - [ ] Scenario and setting
 - [ ] More realistic motion animations (movement and animations of propellers and missiles)
